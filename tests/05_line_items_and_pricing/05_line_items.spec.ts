@@ -9,7 +9,7 @@ test.describe('Module 05: Line Items, Equipment, Units & Pricing Calculations (5
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     visitCreatePage = new VisitCreatePage(page);
-    await loginPage.goto();
+    // Session is automatically preserved from .auth/user.json
     await loginPage.login();
     await visitCreatePage.navigateToCreateVisit();
     await visitCreatePage.selectCustomerAndLocation(7, 'L007');

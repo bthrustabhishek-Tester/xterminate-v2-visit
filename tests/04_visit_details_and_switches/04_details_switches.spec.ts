@@ -9,7 +9,7 @@ test.describe('Module 04: Visit Title, Rich-Text Description & Feature Switches 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     visitCreatePage = new VisitCreatePage(page);
-    await loginPage.goto();
+    // Session is automatically preserved from .auth/user.json
     await loginPage.login();
     await visitCreatePage.navigateToCreateVisit();
   });

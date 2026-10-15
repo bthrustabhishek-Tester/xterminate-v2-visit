@@ -6,7 +6,7 @@ test.describe('Module 10: API Contracts, Schema & Backend Payload Validation (50
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
-    await loginPage.goto();
+    // Session is automatically preserved from .auth/user.json
     await loginPage.login();
   });
 

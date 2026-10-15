@@ -24,7 +24,13 @@ export class LoginPage extends BasePage {
     const user = username || process.env.ADMIN_USERNAME || 'admin@businessthrust.com.sg';
     const pass = password || process.env.ADMIN_PASSWORD || 'password123';
 
-    if (this.page.url().includes('/admin/visits') || (await this.page.locator('text=Hi, Admin').isVisible().catch(() => false))) {
+    // If fresh page from storageState, navigate to /admin/dashboard or /admin/visit
+    if (this.page.url() === 'about:blank') {
+      await this.page.goto('/admin/dashboard');
+      await this.waitForPageReady();
+    }
+
+    if (this.page.url().includes('/admin/visit') || (await this.page.locator('text=Hi, Admin').isVisible().catch(() => false))) {
       return;
     }
 

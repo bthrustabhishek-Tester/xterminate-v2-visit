@@ -13,7 +13,7 @@ test.describe('Module 09: End-to-End Visit Lifecycle & Detail Views (50 Scenario
     loginPage = new LoginPage(page);
     visitCreatePage = new VisitCreatePage(page);
     visitDetailPage = new VisitDetailPage(page);
-    await loginPage.goto();
+    // Session is automatically preserved from .auth/user.json
     await loginPage.login();
   });
 

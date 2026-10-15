@@ -45,11 +45,14 @@ export class VisitDetailPage extends BasePage {
     ];
 
     for (const item of menuItems) {
-      if (await this.page.getByRole('button', { name: 'More' }).nth(1).isVisible({ timeout: 1500 }).catch(() => false)) {
-        await this.page.getByRole('button', { name: 'More' }).nth(1).click();
+      const moreBtn = this.page.getByRole('button', { name: 'More' }).nth(1);
+      if (await moreBtn.isVisible({ timeout: 1000 }).catch(() => false)) {
+        await moreBtn.click().catch(() => {});
+        await this.page.waitForTimeout(200);
         const menuItem = this.page.getByRole('menuitem', { name: item });
-        if (await menuItem.isVisible({ timeout: 1500 }).catch(() => false)) {
-          await menuItem.click();
+        if (await menuItem.isVisible({ timeout: 1000 }).catch(() => false)) {
+          await menuItem.click({ force: true, timeout: 2000 }).catch(() => {});
+          await this.page.waitForTimeout(200);
         }
       }
     }

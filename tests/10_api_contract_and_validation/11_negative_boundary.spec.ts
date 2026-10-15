@@ -6,7 +6,7 @@ test.describe('Module 11: Negative Scenarios, Security Injection & Boundary Test
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
-    await loginPage.goto();
+    // Session is automatically preserved from .auth/user.json
     await loginPage.login();
   });
 

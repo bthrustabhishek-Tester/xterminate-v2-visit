@@ -9,7 +9,7 @@ test.describe('Module 03: Visit Information, Reference, Priorities & Linked Docu
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     visitCreatePage = new VisitCreatePage(page);
-    await loginPage.goto();
+    // Session is automatically preserved from .auth/user.json
     await loginPage.login();
     await visitCreatePage.navigateToCreateVisit();
   });

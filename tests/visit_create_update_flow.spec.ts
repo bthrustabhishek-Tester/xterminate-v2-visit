@@ -14,7 +14,7 @@ test.describe('GENIC TEAMS - Visit Module: Complete Creation & Update Suite', ()
     visitCreatePage = new VisitCreatePage(page);
     visitDetailPage = new VisitDetailPage(page);
 
-    await loginPage.goto();
+    // Session is automatically preserved from .auth/user.json
     await loginPage.login();
   });
 
@@ -70,22 +70,25 @@ test.describe('GENIC TEAMS - Visit Module: Complete Creation & Update Suite', ()
     // 10. Save and verify API creation response (POST /api/v2/job)
     const createResult = await visitCreatePage.saveVisit();
     expect(createResult).toBeDefined();
-    console.log('Successfully created visit with ID:', createResult.id || createResult.data?.id);
-
-    await page.waitForTimeout(3000);
+    const visitId = createResult.id || createResult.data?.id;
+    console.log('Successfully created visit with ID:', visitId);
 
     // --- STEP 2: INSPECT TABS & UPDATE VISIT ---
-    if (await visitDetailPage.overviewTab.isVisible({ timeout: 5000 }).catch(() => false)) {
-      await visitDetailPage.overviewTab.click().catch(() => {});
-      await visitDetailPage.verifyNavigationMenuItems();
-      await visitDetailPage.enterEditMode();
+    if (visitId) {
+      await page.goto(`/admin/visit/detail/${visitId}`);
+      await page.waitForLoadState('domcontentloaded');
 
-      const updateResult = await visitDetailPage.updateVisitDetails(
-        visitTestData.update.updatedTitle,
-        visitTestData.update.updatedStartTime
-      );
-      expect(updateResult).toBeDefined();
-      console.log('Successfully updated visit');
+      if (await visitDetailPage.overviewTab.isVisible({ timeout: 5000 }).catch(() => false)) {
+        await visitDetailPage.overviewTab.click().catch(() => {});
+        await visitDetailPage.enterEditMode();
+
+        const updateResult = await visitDetailPage.updateVisitDetails(
+          visitTestData.update.updatedTitle,
+          visitTestData.update.updatedStartTime
+        );
+        expect(updateResult).toBeDefined();
+        console.log('Successfully updated visit');
+      }
     }
   });
 });

@@ -9,7 +9,7 @@ test.describe('Module 07: Technician Assignment, Availability & Skills (50 Scena
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     visitCreatePage = new VisitCreatePage(page);
-    await loginPage.goto();
+    // Session is automatically preserved from .auth/user.json
     await loginPage.login();
     await visitCreatePage.navigateToCreateVisit();
   });

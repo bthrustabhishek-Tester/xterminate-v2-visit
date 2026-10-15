@@ -9,7 +9,7 @@ test.describe('Module 01: Visit Module Navigation, Breadcrumbs & Layout UI Tests
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     visitCreatePage = new VisitCreatePage(page);
-    await loginPage.goto();
+    // Session is automatically preserved from .auth/user.json
     await loginPage.login();
   });
 
