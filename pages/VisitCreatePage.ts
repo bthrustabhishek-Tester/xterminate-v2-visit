@@ -117,12 +117,12 @@ export class VisitCreatePage extends BasePage {
   }
 
   async navigateToCreateVisit() {
-    await this.visitsNavLink.click();
-    await this.waitForPageReady();
-    await this.createButton.click();
-    await this.waitForPageReady();
-    if (await this.maybeLaterButton.isVisible({ timeout: 3000 }).catch(() => false)) {
-      await this.maybeLaterButton.click();
+    if (!this.page.url().includes('/admin/visits/create')) {
+      await this.page.goto('/admin/visits/create');
+      await this.waitForPageReady();
+    }
+    if (await this.maybeLaterButton.isVisible({ timeout: 2000 }).catch(() => false)) {
+      await this.maybeLaterButton.click().catch(() => {});
     }
   }
 
