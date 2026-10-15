@@ -8,6 +8,7 @@
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "test:e2e": "playwright test tests/visit_create_update_flow.spec.ts",
+    "test:sheet": "playwright test tests/sheet_test_cases.spec.ts",
     "test:nav": "playwright test tests/01_navigation_and_ui",
     "test:customer": "playwright test tests/02_customer_and_locations",
     "test:info": "playwright test tests/03_visit_information_and_docs",
