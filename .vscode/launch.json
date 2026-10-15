@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Playwright: Debug Current Test File",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["playwright", "test", "${file}", "--headed", "--debug"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Playwright: Run QA Sheet Test Cases",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["playwright", "test", "tests/sheet_test_cases.spec.ts", "--headed"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Playwright: Run E2E Create & Update Flow",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["playwright", "test", "tests/visit_create_update_flow.spec.ts", "--headed"],
+      "console": "integratedTerminal"
+    }
+  ]
+}
