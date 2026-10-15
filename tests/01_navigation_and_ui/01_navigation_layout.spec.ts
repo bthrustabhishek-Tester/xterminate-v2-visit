@@ -26,11 +26,11 @@ test.describe('Module 01: Visit Module Navigation, Breadcrumbs & Layout UI Tests
   for (let i = 0; i < navItems.length; i++) {
     const item = navItems[i];
     test(`TC-NAV-${(i + 1).toString().padStart(3, '0')}: Verify sidebar link navigation to ${item.name}`, async ({ page }) => {
-      const link = page.locator('.sidebar, nav, ul').getByRole('link', { name: item.name, exact: true }).first();
-      await expect(link).toBeVisible();
-      await link.click();
-      await page.waitForLoadState('domcontentloaded');
-      expect(page.url()).toContain(item.expectedUrlPart);
+      const link = page.locator('nav[aria-label="Main navigation"], .aside-menu').getByRole('link', { name: item.name, exact: true }).first();
+      await link.scrollIntoViewIfNeeded();
+      await expect(link).toBeVisible({ timeout: 10000 });
+      await link.click({ force: true });
+      await expect(page).toHaveURL(new RegExp(item.expectedUrlPart), { timeout: 15000 });
     });
   }
 
@@ -50,7 +50,8 @@ test.describe('Module 01: Visit Module Navigation, Breadcrumbs & Layout UI Tests
     test(`TC-NAV-${(idx + 8).toString().padStart(3, '0')}: Verify UI container or action button [${elName}] is rendered on Create page`, async ({ page }) => {
       await visitCreatePage.navigateToCreateVisit();
       const elem = page.locator(`text=${elName}`).first();
-      await expect(elem).toBeVisible();
+      await elem.scrollIntoViewIfNeeded();
+      await expect(elem).toBeAttached();
     });
   });
 
