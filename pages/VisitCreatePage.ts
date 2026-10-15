@@ -1,6 +1,7 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { VisitModel } from '../data/visitTestData';
+import { getCustomerDataFromExcel } from '../data/excelHelper';
 
 export class VisitCreatePage extends BasePage {
   // Top level navigation & general buttons
@@ -125,16 +126,74 @@ export class VisitCreatePage extends BasePage {
     }
   }
 
-  async selectCustomerAndLocation(customerIndex: number = 7, billingCode: string = 'L007') {
+  async selectCustomerAndLocation(
+    excelFilePathOrIndex?: string | number,
+    fallbackBillingCode: string = 'L007'
+  ) {
+    let excelData = null;
+    let manualIndex: number | undefined = undefined;
+
+    if (typeof excelFilePathOrIndex === 'string') {
+      excelData = getCustomerDataFromExcel(excelFilePathOrIndex);
+    } else if (typeof excelFilePathOrIndex === 'number') {
+      manualIndex = excelFilePathOrIndex;
+    } else {
+      // Check default excel file path if no argument was passed
+      excelData = getCustomerDataFromExcel();
+    }
+
     await this.selectCustomerButton.click();
-    await this.page.locator(`.customer-list > div:nth-child(${customerIndex})`).click();
+    await this.page.waitForTimeout(500);
+
+    const customerRows = this.page.locator('.customer-list > div, .v-dialog .customer-item, .v-dialog tbody tr');
+    await customerRows.first().waitFor({ state: 'visible', timeout: 8000 });
+    const count = await customerRows.count();
+
+    if (excelData?.customerName) {
+      // 1. Pick customer by name from Excel
+      const searchBox = this.page.getByRole('textbox', { name: /search/i }).first();
+      if (await searchBox.isVisible({ timeout: 2000 }).catch(() => false)) {
+        await searchBox.fill(excelData.customerName);
+        await this.page.waitForTimeout(500);
+      }
+      const matchedItem = this.page.locator(`text=${excelData.customerName}`).first();
+      if (await matchedItem.isVisible({ timeout: 3000 }).catch(() => false)) {
+        await matchedItem.click();
+      } else {
+        const randomIdx = Math.floor(Math.random() * Math.max(count, 1)) + 1;
+        await this.page.locator(`.customer-list > div:nth-child(${randomIdx})`).click();
+      }
+    } else if (excelData?.customerIndex && excelData.customerIndex <= count) {
+      // 2. Pick by row index from Excel
+      await this.page.locator(`.customer-list > div:nth-child(${excelData.customerIndex})`).click();
+    } else if (manualIndex !== undefined && manualIndex <= count) {
+      // 3. Pick by manual index passed to function
+      await this.page.locator(`.customer-list > div:nth-child(${manualIndex})`).click();
+    } else {
+      // 4. Fallback: Pick a completely RANDOM customer from the live list
+      const randomIdx = Math.floor(Math.random() * Math.max(count, 1)) + 1;
+      console.log(`[Excel not provided/found] Picking random customer at index #${randomIdx} out of ${count} available.`);
+      await this.page.locator(`.customer-list > div:nth-child(${randomIdx})`).click();
+    }
+
     await this.waitForPageReady();
 
+    // Select Billing Location
+    const targetBillingCode = excelData?.billingCode || fallbackBillingCode;
     if (await this.editBillingLocationButton.isVisible({ timeout: 2000 }).catch(() => false)) {
       await this.editBillingLocationButton.click();
-      const locItem = this.page.locator('span').filter({ hasText: billingCode }).first();
-      if (await locItem.isVisible({ timeout: 3000 }).catch(() => false)) {
+      await this.page.waitForTimeout(500);
+
+      const locItem = this.page.locator('span, div').filter({ hasText: targetBillingCode }).first();
+      if (await locItem.isVisible({ timeout: 2000 }).catch(() => false)) {
         await locItem.click();
+      } else {
+        const locationOptions = this.page.locator('.v-dialog .location-item, .v-dialog tbody tr, .v-dialog .v-card');
+        if (await locationOptions.first().isVisible({ timeout: 2000 }).catch(() => false)) {
+          const locCount = await locationOptions.count();
+          const randomLocIdx = Math.floor(Math.random() * locCount);
+          await locationOptions.nth(randomLocIdx).click().catch(() => {});
+        }
       }
       await this.closeDialogButton.click().catch(() => {});
     }

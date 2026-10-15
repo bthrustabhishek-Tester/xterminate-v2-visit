@@ -20,7 +20,14 @@
     "test:api": "playwright test tests/10_api_contract_and_validation",
     "test:report": "playwright show-report"
   },
-  "keywords": ["playwright", "automation", "e2e", "visit-module", "genicteams", "500-tests"],
+  "keywords": [
+    "playwright",
+    "automation",
+    "e2e",
+    "visit-module",
+    "genicteams",
+    "500-tests"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -28,5 +35,8 @@
     "@types/node": "^22.13.0",
     "dotenv": "^16.4.7",
     "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
   }
 }
