@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/*.xlsx
+downloads/*.csv
+downloads/*.pdf
+!downloads/.gitkeep
+
+# Pytest & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Sensitive Environment & Session Credentials
+.env
+auth_state.json
+
+# Reports & Screenshots (ignore generated outputs, keep directory structure)
+reports/*.html
+reports/*.json
+!reports/.gitkeep
+
+screenshots/*.png
+screenshots/*.jpg
+!screenshots/.gitkeep
+
+# IDEs & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.bak
