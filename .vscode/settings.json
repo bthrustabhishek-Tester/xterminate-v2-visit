@@ -3,6 +3,13 @@
   "playwright.showTrace": true,
   "playwright.reuseBrowser": false,
   "typescript.tsdk": "node_modules/typescript/lib",
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}"
+  ],
+  "python.autoComplete.extraPaths": [
+    "${workspaceFolder}"
+  ],
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,

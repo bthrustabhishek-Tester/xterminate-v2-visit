@@ -21,6 +21,7 @@ dist/
 .pytest_cache/
 .coverage
 htmlcov/
+.venv/
 
 # Export Framework Artifacts (Keep directory structure via .gitkeep)
 downloads/*.xlsx
