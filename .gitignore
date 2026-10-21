@@ -1,10 +1,45 @@
+# Node & Playwright Test Artifacts
 node_modules/
 .env
 .auth/
+auth_state.json
 test-results/
 playwright-report/
 blob-report/
 playwright/.cache/
 *.log
+
+# Python compiled & cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Export Framework Artifacts (Keep directory structure via .gitkeep)
+downloads/*.xlsx
+downloads/*.csv
+downloads/*.pdf
+!downloads/.gitkeep
+
+reports/*.html
+reports/*.json
+!reports/.gitkeep
+
+screenshots/*.png
+screenshots/*.jpg
+!screenshots/.gitkeep
+
+# IDEs & Operating System Files
+.vscode/
+.idea/
 .DS_Store
 Thumbs.db
+*.swp
+*.bak

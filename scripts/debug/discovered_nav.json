@@ -1,0 +1,134 @@
+[
+  {
+    "text": "Dashboard",
+    "href": "/admin/dashboard"
+  },
+  {
+    "text": "Job Calendar",
+    "href": "/admin/calendar"
+  },
+  {
+    "text": "Resource Calendar",
+    "href": "/admin/calendar-resource"
+  },
+  {
+    "text": "Leads",
+    "href": "/admin/lead"
+  },
+  {
+    "text": "Customers",
+    "href": "/admin/customer"
+  },
+  {
+    "text": "Suppliers",
+    "href": "/admin/supplier"
+  },
+  {
+    "text": "Sites",
+    "href": "/admin/property"
+  },
+  {
+    "text": "Quotations",
+    "href": "/admin/quotation"
+  },
+  {
+    "text": "Invoice",
+    "href": "/admin/invoice"
+  },
+  {
+    "text": "Project",
+    "href": "/admin/project"
+  },
+  {
+    "text": "Payment",
+    "href": "/admin/payment"
+  },
+  {
+    "text": "Technicians",
+    "href": "/admin/engineer"
+  },
+  {
+    "text": "Leave",
+    "href": "/admin/leave"
+  },
+  {
+    "text": "Products",
+    "href": "/admin/product"
+  },
+  {
+    "text": "Service",
+    "href": "/admin/service"
+  },
+  {
+    "text": "Parts",
+    "href": "/admin/part"
+  },
+  {
+    "text": "Own Asset",
+    "href": "/admin/asset-equipment"
+  },
+  {
+    "text": "Customer Asset",
+    "href": "/admin/client-equipment"
+  },
+  {
+    "text": "Visit",
+    "href": "/admin/visit"
+  },
+  {
+    "text": "Enquiry",
+    "href": "/admin/enquiry"
+  },
+  {
+    "text": "Warranty",
+    "href": "/admin/warranty"
+  },
+  {
+    "text": "Technicians Attendance",
+    "href": "/admin/profile/timeSheet"
+  },
+  {
+    "text": "Technicians Visit Timesheet",
+    "href": "/admin/profile/visit-timesheet"
+  },
+  {
+    "text": "Visit Service Form",
+    "href": "/admin/service-form"
+  },
+  {
+    "text": "Export",
+    "href": "/admin/export"
+  },
+  {
+    "text": "Mr. Super Admin",
+    "href": "/admin/profile/basic"
+  },
+  {
+    "text": "Help Resources",
+    "href": "/admin/dashboard"
+  },
+  {
+    "text": "support@genicteams.com",
+    "href": "mailto:support@genicteams.com"
+  },
+  {
+    "text": "Book a demo",
+    "href": "/admin/dashboard"
+  },
+  {
+    "text": "TICKETS",
+    "href": "#tab-tickets"
+  },
+  {
+    "text": "PROJECTS",
+    "href": "#tab-project"
+  },
+  {
+    "text": "ENQUIRY",
+    "href": "#tab-enquiry"
+  },
+  {
+    "text": "SALES & CONTRACT",
+    "href": "#tab-sales-contract"
+  }
+]
