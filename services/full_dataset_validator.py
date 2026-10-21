@@ -7,9 +7,10 @@ authenticated customer API and validates every single column and row against the
 
 import json
 from pathlib import Path
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Tuple, Optional
 import pandas as pd
 from playwright.sync_api import sync_playwright
+from config.settings import settings
 
 class FullDatasetValidator:
     """Validates the entire customer database against the exported Excel file across all columns and rows."""
@@ -46,7 +47,7 @@ class FullDatasetValidator:
             total_records = None
 
             while True:
-                url = f"https://stg-happie.businessthrust.com/api/customer?current_page={current_page}&per_page={per_page}&entity=0&filter_date_type=appointment&status=all"
+                url = f"{settings.BASE_URL}/api/customer?current_page={current_page}&per_page={per_page}&entity=0&filter_date_type=appointment&status=all"
                 res = context.request.get(url, headers={"Authorization": auth_token})
                 if res.status != 200:
                     print(f"[FullValidator] Warning: API returned status {res.status} on page {current_page}")
@@ -79,7 +80,7 @@ class FullDatasetValidator:
 
                 # cmt: Expect the first customer API request on page load to capture Bearer token
                 with temp_page.expect_request(lambda req: "/api/customer" in req.url, timeout=15000) as first_req:
-                    temp_page.goto("https://stg-happie.businessthrust.com/admin/customer")
+                    temp_page.goto(settings.CUSTOMER_URL)
                 auth_token = first_req.value.headers.get("authorization")
 
                 if not auth_token:
@@ -91,7 +92,7 @@ class FullDatasetValidator:
                 total_records = None
 
                 while True:
-                    url = f"https://stg-happie.businessthrust.com/api/customer?current_page={current_page}&per_page={per_page}&entity=0&filter_date_type=appointment&status=all"
+                    url = f"{settings.BASE_URL}/api/customer?current_page={current_page}&per_page={per_page}&entity=0&filter_date_type=appointment&status=all"
                     res = context.request.get(url, headers={"Authorization": auth_token})
                     if res.status != 200:
                         print(f"[FullValidator] Warning: API returned status {res.status} on page {current_page}")

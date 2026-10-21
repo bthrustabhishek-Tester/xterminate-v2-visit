@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import List, Dict, Any, Tuple, Optional
 import pandas as pd
 from playwright.sync_api import sync_playwright
+from config.settings import settings
 
 class InvoiceValidator:
     """Validates live Invoice database records against the exported Excel dataset across all 45 columns."""
@@ -49,7 +50,7 @@ class InvoiceValidator:
             total_records = None
 
             while True:
-                url = f"https://stg-happie.businessthrust.com/api/invoice?current_page={current_page}&per_page={per_page}&status=all"
+                url = f"{settings.BASE_URL}/api/invoice?current_page={current_page}&per_page={per_page}&status=all"
                 res = context.request.get(url, headers={"Authorization": auth_token})
                 if res.status != 200:
                     print(f"[InvoiceValidator] Warning: API returned {res.status} on page {current_page}")
@@ -81,7 +82,7 @@ class InvoiceValidator:
 
                 tokens = {}
                 temp_page.on("request", lambda r: tokens.update({"auth": r.headers.get("authorization")}) if "/api/" in r.url and r.headers.get("authorization") else None)
-                temp_page.goto("https://stg-happie.businessthrust.com/admin/invoice?status=all", wait_until="domcontentloaded")
+                temp_page.goto(settings.INVOICE_URL, wait_until="domcontentloaded")
                 temp_page.wait_for_timeout(2000)
                 auth_token = tokens.get("auth")
 
@@ -94,7 +95,7 @@ class InvoiceValidator:
                 total_records = None
 
                 while True:
-                    url = f"https://stg-happie.businessthrust.com/api/invoice?current_page={current_page}&per_page={per_page}&status=all"
+                    url = f"{settings.BASE_URL}/api/invoice?current_page={current_page}&per_page={per_page}&status=all"
                     res = context.request.get(url, headers={"Authorization": auth_token})
                     if res.status != 200:
                         break

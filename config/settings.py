@@ -35,9 +35,10 @@ class Settings:
     QUOTATION_URL: str = os.getenv("QUOTATION_URL", f"{BASE_URL}/admin/quotation?status=all")
     INVOICE_URL: str = os.getenv("INVOICE_URL", f"{BASE_URL}/admin/invoice?status=all")
     PAYMENT_URL: str = os.getenv("PAYMENT_URL", f"{BASE_URL}/admin/payment?status=all")
+    VISIT_URL: str = os.getenv("VISIT_URL", f"{BASE_URL}/admin/visit")
 
     # Authentication Credentials
-    ADMIN_EMAIL: str = os.getenv("ADMIN_EMAIL", "admin@bthrust.com")
+    ADMIN_EMAIL: str = os.getenv("ADMIN_EMAIL") or os.getenv("ADMIN_USERNAME") or "admin@bthrust.com"
     ADMIN_PASSWORD: str = os.getenv("ADMIN_PASSWORD", "stgHap@92#M$")
 
     # Browser & Playwright Configurations
