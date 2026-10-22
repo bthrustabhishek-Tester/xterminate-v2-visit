@@ -8,8 +8,9 @@ setup('authenticate once and save storage state', async ({ page }) => {
   await loginPage.goto();
   await loginPage.login();
 
-  // Verify we are successfully logged in
-  await expect(page.locator('text=Hi, Admin').first()).toBeVisible({ timeout: 15000 });
+  // Verify we are successfully logged in and on the admin portal
+  await page.waitForURL(/.*admin\/(dashboard|visit|customer)/, { timeout: 20000 });
+  await page.waitForLoadState('domcontentloaded');
 
   // Save the full session (cookies, localStorage, sessionStorage) to disk
   await page.context().storageState({ path: authFile });

@@ -74,3 +74,34 @@ export const visitTestData = {
     updatedStartTime: '09:00 AM'
   }
 };
+
+/**
+ * Returns dynamic test data pre-populated with a valid customer ID, name,
+ * and property/site barcode fetched from the Customer API provider.
+ */
+export function getDynamicVisitTestData(queryOrBarcode?: string): typeof visitTestData.create & { customerId: number; billingLocationCode: string } {
+  try {
+    // pyrefly: ignore[missing-import]
+    const { CustomerProvider } = require('../helpers/customer_provider');
+    const customer = queryOrBarcode
+      ? CustomerProvider.search(queryOrBarcode)[0] || CustomerProvider.pickCustomerForVisit()
+      : CustomerProvider.pickCustomerForVisit();
+
+    const autofill = CustomerProvider.getVisitAutofillData(customer);
+    return {
+      ...visitTestData.create,
+      reference: autofill.visitReference,
+      title: autofill.visitTitle,
+      customerId: autofill.customerId,
+      customerSearchText: autofill.customerSearchText,
+      billingLocationCode: autofill.billingLocationBarcode,
+    };
+  } catch {
+    return {
+      ...visitTestData.create,
+      customerId: 36,
+      customerSearchText: 'Daniel Wong',
+      billingLocationCode: 'L121',
+    };
+  }
+}

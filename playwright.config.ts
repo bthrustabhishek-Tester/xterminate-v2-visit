@@ -33,12 +33,17 @@ export default defineConfig({
     video: 'retain-on-failure',
   },
   projects: [
-    // 1. Setup project runs FIRST and logs in exactly ONCE
+    // 1. Direct API contract & validation tests (run headlessly without UI browser setup)
+    {
+      name: 'api',
+      testMatch: /10_api_contract_and_validation\/.*\.spec\.ts/,
+    },
+    // 2. Setup project runs FIRST for UI tests and logs in exactly ONCE
     {
       name: 'setup',
       testMatch: /auth\.setup\.ts/,
     },
-    // 2. Main tests run using the saved logged-in state without logging in again
+    // 3. UI browser tests run using the saved logged-in state
     {
       name: 'chromium',
       use: {
@@ -46,7 +51,7 @@ export default defineConfig({
         storageState: STORAGE_STATE,
       },
       dependencies: ['setup'],
-      testIgnore: /auth\.setup\.ts/,
+      testIgnore: [/auth\.setup\.ts/, /10_api_contract_and_validation\/.*\.spec\.ts/],
     }
   ],
 });

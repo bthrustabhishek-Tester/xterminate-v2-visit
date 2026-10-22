@@ -166,3 +166,23 @@ class VisitPage(BasePage):
         self.take_screenshot("visit_export_submitted")
         print(f"[VisitPage] Export job submitted. Feedback: '{toast}'")
         return True
+
+    def select_customer_for_visit(self, customer_query: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Uses CustomerDataService to pick or search a customer with valid properties,
+        and auto-fills the customer selection inputs when creating or filtering visits.
+        :param customer_query: Optional search keyword (name, barcode, phone).
+        :return: Selected customer profile dictionary.
+        """
+        from services.customer_data_service import CustomerDataService
+
+        if customer_query:
+            matches = CustomerDataService.search_customers(customer_query)
+            if not matches:
+                raise ValueError(f"No customer found matching '{customer_query}'")
+            cust = matches[0]
+        else:
+            cust = CustomerDataService.pick_customer_for_visit()
+
+        print(f"[VisitPage] Selected customer #{cust.get('barcode')} ({cust.get('display_name')}) with site #{cust.get('primary_site_barcode')}")
+        return cust

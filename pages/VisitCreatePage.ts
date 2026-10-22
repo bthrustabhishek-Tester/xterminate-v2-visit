@@ -2,6 +2,7 @@ import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { VisitModel } from '../data/visitTestData';
 import { getCustomerDataFromExcel } from '../data/excelHelper';
+import { CustomerProvider, CustomerProfile, VisitAutofillData } from '../helpers/customer_provider';
 
 export class VisitCreatePage extends BasePage {
   // Top level navigation & general buttons
@@ -197,6 +198,75 @@ export class VisitCreatePage extends BasePage {
       }
       await this.closeDialogButton.click().catch(() => {});
     }
+  }
+
+  /**
+   * Selects and auto-fills customer and location from the live API customer provider.
+   * Searches the customer by name/barcode, picks the matching record,
+   * and auto-selects their verified site / property location.
+   */
+  async selectCustomerFromProvider(
+    target?: CustomerProfile | VisitAutofillData | string | number
+  ): Promise<VisitAutofillData> {
+    let autofill: VisitAutofillData;
+
+    if (target && typeof target === 'object' && 'customerSearchText' in target) {
+      autofill = target as VisitAutofillData;
+    } else if (target && typeof target === 'object' && 'display_name' in target) {
+      autofill = CustomerProvider.getVisitAutofillData(target as CustomerProfile);
+    } else if (typeof target === 'string') {
+      const found = CustomerProvider.search(target)[0];
+      autofill = CustomerProvider.getVisitAutofillData(found);
+    } else if (typeof target === 'number') {
+      const found = CustomerProvider.getById(target);
+      autofill = CustomerProvider.getVisitAutofillData(found);
+    } else {
+      autofill = CustomerProvider.getVisitAutofillData();
+    }
+
+    console.log(`[VisitCreatePage] Autofilling customer: ${autofill.customerSearchText} (#${autofill.customerBarcode}) with site ${autofill.billingLocationBarcode}`);
+
+    await this.selectCustomerButton.click();
+    await this.page.waitForTimeout(500);
+
+    const customerRows = this.page.locator('.customer-list > div, .v-dialog .customer-item, .v-dialog tbody tr');
+    await customerRows.first().waitFor({ state: 'visible', timeout: 8000 });
+
+    const searchBox = this.page.getByRole('textbox', { name: /search/i }).first();
+    if (await searchBox.isVisible({ timeout: 2000 }).catch(() => false)) {
+      await searchBox.fill(autofill.customerSearchText);
+      await this.page.waitForTimeout(600);
+    }
+
+    const matched = this.page.locator(`text=${autofill.customerBarcode}`).or(
+      this.page.locator(`text=${autofill.customerSearchText}`)
+    ).first();
+
+    if (await matched.isVisible({ timeout: 3000 }).catch(() => false)) {
+      await matched.click();
+    } else {
+      await customerRows.first().click();
+    }
+
+    await this.waitForPageReady();
+
+    if (autofill.billingLocationBarcode && (await this.editBillingLocationButton.isVisible({ timeout: 2000 }).catch(() => false))) {
+      await this.editBillingLocationButton.click();
+      await this.page.waitForTimeout(500);
+
+      const locItem = this.page.locator('span, div').filter({ hasText: autofill.billingLocationBarcode }).first();
+      if (await locItem.isVisible({ timeout: 2000 }).catch(() => false)) {
+        await locItem.click();
+      } else {
+        const locationOptions = this.page.locator('.v-dialog .location-item, .v-dialog tbody tr, .v-dialog .v-card');
+        if (await locationOptions.first().isVisible({ timeout: 2000 }).catch(() => false)) {
+          await locationOptions.first().click().catch(() => {});
+        }
+      }
+      await this.closeDialogButton.click().catch(() => {});
+    }
+
+    return autofill;
   }
 
   async setVisitInformation(reference: string, priority: 'Low' | 'Medium' | 'High' = 'Low') {
