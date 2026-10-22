@@ -7,6 +7,7 @@ Loads values from environment variables (.env) with sensible defaults.
 
 import os
 from pathlib import Path
+# pyrefly: ignore[missing-import]
 from dotenv import load_dotenv
 
 # Base Project Paths

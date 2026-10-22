@@ -1,15 +1,14 @@
 {
-  "name": "visit-automation-tests",
+  "name": "xterminate-v2",
   "version": "1.0.0",
-  "description": "Comprehensive Playwright End-to-End Automation Suite for GENIC TEAMS Visit Module (500+ Scenarios)",
+  "description": "Comprehensive Playwright End-to-End Automation Suite for Xterminate V2 (500+ Scenarios)",
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "test:export": "playwright test tests/visit_export_flow.spec.ts",
-    "test:e2e": "playwright test tests/visit_create_update_flow.spec.ts",
-    "test:sheet": "playwright test tests/sheet_test_cases.spec.ts",
+    "test:e2e": "playwright test tests/09_e2e_creation_and_lifecycle",
     "test:nav": "playwright test tests/01_navigation_and_ui",
     "test:customer": "playwright test tests/02_customer_and_locations",
     "test:info": "playwright test tests/03_visit_information_and_docs",

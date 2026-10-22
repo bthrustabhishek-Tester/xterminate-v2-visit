@@ -1,4 +1,4 @@
-# GENIC TEAMS / BusinessThrust FSM - Unified Automation & Validation Framework
+# Xterminate V2 - Unified Automation & Validation Framework
 
 An enterprise-grade, comprehensive testing and validation repository unifying:
 1. **Visit Module E2E Automation Framework** (Playwright + TypeScript + Page Object Model)
@@ -11,7 +11,7 @@ Designed to automate business operations, end-to-end user workflows, and perform
 ## 🏗️ Architecture & Project Structure
 
 ```
-visit-automation-tests/
+xterminate-v2/
 ├── config/                                # Central Configuration
 │   ├── __init__.py
 │   └── settings.py                        # Central settings, URLs, credentials (.env)
@@ -127,7 +127,7 @@ Ensure `.env` contains:
 BASE_URL=https://dev-xterminate-v2.businessthrust.com.sg
 ADMIN_USERNAME=admin@genicteams.com
 ADMIN_PASSWORD=your_password_here
-HEADLESS=false
+HEADLESS=true
 ```
 
 ---

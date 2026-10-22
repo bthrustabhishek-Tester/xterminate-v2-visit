@@ -9,6 +9,7 @@ Provides methods to:
 """
 
 from typing import List, Dict, Any
+# pyrefly: ignore[missing-import]
 from playwright.sync_api import Page
 from pages.base_page import BasePage
 from config.settings import settings
