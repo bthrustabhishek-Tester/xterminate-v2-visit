@@ -1,130 +1,161 @@
-# Xterminate V2 - Unified Test Automation & API Validation Framework
+# Xterminate V2 - Unified Test Automation & Quality Engineering Framework
 
-An enterprise-grade, comprehensive Playwright + TypeScript test automation and API contract verification framework for the **Xterminate V2 Business Thrust ERP System**.
+An enterprise-grade, full-stack test automation, performance engineering, and API contract verification framework for the **Xterminate V2 Business Thrust ERP System**.
 
 ---
 
-## 🏗️ Architecture & Modular Organization
-
-All tests are organized strictly **module-wise** across 5 functional operational domains with dedicated `.ui.spec.ts` (end-to-end browser automation) and `.api.spec.ts` (direct HTTP contract and schema validation):
+## 🏗️ Architecture & Framework Capabilities
 
 ```
 Xterminate-v2-automation-tests/
-├── tests/
-│   ├── 00_setup/
-│   │   └── auth.setup.ts                               # Session authentication (runs once, persists to .auth/user.json)
-│   ├── 01_auth/
-│   │   └── auth_lifecycle.api.spec.ts                 # Login, password rejection, token validation & logout lifecycle
-│   ├── 02_customer/
-│   │   ├── customer_listing_and_filters.ui.spec.ts    # Customer table, search, filters & metric cards
-│   │   ├── customer_create_flow.ui.spec.ts            # Stepper form creation, validation & address lookup
-│   │   ├── customer_contracts.api.spec.ts             # Direct API contract & validation tests
-│   │   └── customer_visit_autofill.api.spec.ts        # Customer pool caching & Visit autofill integration
-│   ├── 03_visits/
-│   │   ├── 01_navigation_layout.ui.spec.ts            # Navigation layout & Visit dashboard
-│   │   ├── 02_customer_location.ui.spec.ts            # Customer & Site location selector
-│   │   ├── 03_visit_info_documents.ui.spec.ts         # Visit document linkages (quotation, invoice)
-│   │   ├── 04_details_switches.ui.spec.ts             # Service switches & flags
-│   │   ├── 05_line_items.ui.spec.ts                   # Line items, units & pricing calculation
-│   │   ├── 06_schedule.ui.spec.ts                     # Scheduling & recurring rules
-│   │   ├── 07_technicians.ui.spec.ts                  # Technician assignment & skill checks
-│   │   ├── 08_notes_attachments.ui.spec.ts           # Notes, customer terms & attachments
-│   │   ├── 09_lifecycle.ui.spec.ts                    # Full lifecycle E2E creation & verification
-│   │   ├── 10_visit_export_flow.ui.spec.ts            # Visit export hub & spreadsheet download
-│   │   └── visit_v2_services.api.spec.ts              # Visit / Job API options, stats, tags & availability
-│   ├── 04_finance/
-│   │   ├── quotation.api.spec.ts                      # Quotation v2 API contracts, options & summary
-│   │   └── invoice.api.spec.ts                        # Invoice v2 API contracts, options & summary
-│   └── 05_operations_system/
-│       ├── enquiry_and_supplier.api.spec.ts           # Enquiries, lead sources & supplier management APIs
-│       └── system_and_search.api.spec.ts              # System configuration, custom fields, units & global search
+├── .github/
+│   └── workflows/
+│       └── playwright.yml                             # Automated CI/CD pipeline (API, UI, artifacts & reports)
+│
+├── performance/                                       # Performance, Load & Stress Testing (Apache JMeter)
+│   ├── jmeter/
+│   │   └── xterminate_v2_load_test.jmx                # Multi-user concurrent load test plan (Auth, CRM, Finance)
+│   ├── run_jmeter_test.ps1                            # Non-GUI CLI execution runner & HTML report builder
+│   └── README.md                                      # Performance testing guide & SLA metrics
 │
 ├── pages/                                             # Page Object Model (POM)
-│   ├── BasePage.ts                                    # Base page helpers, waits & toast handlers
-│   ├── LoginPage.ts                                   # Vuetify authentication page object
-│   ├── CustomerListPage.ts                            # Customer CRM listing, metric cards & filters
-│   ├── CustomerCreatePage.ts                          # Customer stepper form page object
-│   ├── VisitListPage.ts                               # Visit listing & status filters
-│   ├── VisitCreatePage.ts                             # Visit creation stepper & line item handlers
-│   └── VisitDetailPage.ts                             # Visit detail & update handlers
+│   ├── index.ts                                       # TypeScript POM barrel exports
+│   ├── BasePage.ts                                    # Base class (DOM waits, skeletons, toasts)
+│   ├── LoginPage.ts                                   # Authentication & session creation POM
+│   ├── CustomerListPage.ts                            # CRM Customer data table, search, filters & cards
+│   ├── CustomerCreatePage.ts                          # Customer stepper form creation & address lookup
+│   ├── VisitListPage.ts                               # Visit listing table & filters
+│   ├── VisitCreatePage.ts                             # Visit creation stepper & line items
+│   ├── VisitDetailPage.ts                             # Visit details inspection & updates
+│   ├── README.md                                      # Language-separated POM architecture guide
+│   └── python/                                        # Isolated Python Page Objects
+│       ├── __init__.py
+│       ├── base_page.py
+│       ├── login_page.py
+│       ├── customer_page.py
+│       └── visit_page.py
+│
+├── tests/                                             # Automated Test Suites (Organized Module-Wise)
+│   ├── 00_setup/
+│   │   └── auth.setup.ts                              # UI session storage caching (.auth/user.json)
+│   ├── 01_auth/
+│   │   └── auth_lifecycle.api.spec.ts                # Login, bad passwords, token verification & logout
+│   ├── 02_customer/
+│   │   ├── customer_listing_and_filters.ui.spec.ts   # Table rendering, search, filters & metric cards
+│   │   ├── customer_create_flow.ui.spec.ts           # Stepper form & Faker data generation
+│   │   ├── customer_contracts.api.spec.ts            # CRM API contracts & negative validations
+│   │   └── customer_visit_autofill.api.spec.ts       # Customer pool caching & visit autofill
+│   ├── 03_visits/
+│   │   ├── 01_visit_navigation_layout.ui.spec.ts     # Navigation layout & dashboard
+│   │   ├── 02_visit_customer_location.ui.spec.ts     # Customer & site location selector
+│   │   ├── 03_visit_information_docs.ui.spec.ts      # Document linkages (quotation, invoice)
+│   │   ├── 04_visit_details_switches.ui.spec.ts      # Service switches & flags
+│   │   ├── 05_visit_line_items_pricing.ui.spec.ts    # Line items & pricing calculations
+│   │   ├── 06_visit_schedule_recurrence.ui.spec.ts   # Schedule & recurring rules
+│   │   ├── 07_visit_technician_assignment.ui.spec.ts  # Technician assignment & skill checks
+│   │   ├── 08_visit_notes_attachments.ui.spec.ts     # Notes, terms & attachments
+│   │   ├── 09_visit_lifecycle_e2e.ui.spec.ts         # Full lifecycle E2E creation
+│   │   ├── 10_visit_export_flow.ui.spec.ts           # Export hub & spreadsheet download
+│   │   ├── visit_browser_api_contracts.ui.spec.ts    # Browser-intercepted contract checks
+│   │   ├── visit_filtering_sorting.ui.spec.ts        # Table filtering & sorting
+│   │   ├── visit_negative_boundary.ui.spec.ts        # Boundary cases & validation errors
+│   │   └── visit_v2_services.api.spec.ts             # Direct visit options, stats & availability API
+│   ├── 04_finance/
+│   │   ├── quotation.api.spec.ts                     # Quotation v2 API contracts & options
+│   │   └── invoice.api.spec.ts                       # Invoice v2 API contracts & options
+│   ├── 05_operations_system/
+│   │   ├── enquiry_and_supplier.api.spec.ts          # Enquiries, leads & supplier APIs
+│   │   └── system_and_search.api.spec.ts             # System settings, custom fields & search
+│   ├── api/
+│   │   └── api_health_matrix.api.spec.ts             # Dedicated top-level API SLA & Latency health matrix
+│   └── deterministic_validator.api.spec.ts           # Offline exact-matching validator unit tests
 │
 ├── helpers/
-│   ├── apiAuthHelper.ts                               # Dynamic API token caching (.auth/api_token.json) & retry backoff
-│   └── customer_provider.ts                           # Offline & live customer pool provider for visit autofill
+│   ├── apiAuthHelper.ts                              # Bearer token caching (.auth/api_token.json) & retry backoff
+│   ├── fakerDataHelper.ts                            # Unique localized test data generator (@faker-js/faker)
+│   ├── deterministicValidator.ts                     # Exact data normalization & comparison engine
+│   ├── logger.ts                                     # Structured timestamped execution logger
+│   └── customer_provider.ts                          # Customer pool provider for visit autofill
 │
 ├── data/
-│   ├── api_endpoints_catalog.json                     # Canonical catalog of all 49 v2 system API endpoints
-│   ├── customer_pool.json                             # Cached customer pool records
-│   ├── visitTestData.ts                               # Standard visit creation fixture payloads
-│   └── postman/                                       # Exported Postman collection & environment
+│   ├── api_endpoints_catalog.json                    # Canonical catalog of all 49 v2 system API endpoints
+│   ├── customer_pool.json                            # Cached customer pool records
+│   ├── visitTestData.ts                              # Visit creation fixture payloads
+│   └── postman/                                      # Exported Postman collection & environment
 │
-├── playwright.config.ts                               # Playwright multi-project config (setup, api, chromium)
-└── package.json                                       # Module-wise NPM run scripts
+├── playwright.config.ts                              # Multi-project config (retries, traces, screenshots, video)
+├── .env.example                                      # Environment variable template (Zero secrets in Git)
+└── package.json                                      # NPM dependencies & module test scripts
 ```
 
 ---
 
-## ⚡ Execution Commands (Module-Wise)
+## 🌟 Key Improvements & Architectural Highlights
 
-### 1. Run Complete Test Suites
+### 1. Clear Language Separation for Page Objects (POM)
+- TypeScript POMs reside in `pages/*.ts` with a central barrel export `pages/index.ts`.
+- Python POMs are isolated in `pages/python/*.py`, eliminating duplicate class confusion.
+- See [`pages/README.md`](file:///c:/Users/Admin/.gemini/antigravity/scratch/Xterminate-v2-automation-tests/pages/README.md).
+
+### 2. Dedicated API Testing Suites
+- Dedicated API suites across all modules (`*.api.spec.ts`).
+- Top-level SLA and latency matrix in [`tests/api/api_health_matrix.api.spec.ts`](file:///c:/Users/Admin/.gemini/antigravity/scratch/Xterminate-v2-automation-tests/tests/api/api_health_matrix.api.spec.ts).
+- Automated HTTP status checks, schema validation, latency SLAs (< 8000ms), and 401 unauthorized rejection.
+
+### 3. Performance & Stress Testing (Apache JMeter)
+- Production-ready test plan in [`performance/jmeter/xterminate_v2_load_test.jmx`](file:///c:/Users/Admin/.gemini/antigravity/scratch/Xterminate-v2-automation-tests/performance/jmeter/xterminate_v2_load_test.jmx).
+- Automates dynamic JWT token extraction and multi-user concurrent traffic across CRM, Visits, Quotations, Invoices, and Global Search.
+- Run non-GUI load tests via PowerShell:
+  ```powershell
+  .\performance\run_jmeter_test.ps1 -Threads 50 -RampUp 30 -Loops 5
+  ```
+
+### 4. Continuous Integration (GitHub Actions)
+- Automated workflow in [`.github/workflows/playwright.yml`](file:///c:/Users/Admin/.gemini/antigravity/scratch/Xterminate-v2-automation-tests/.github/workflows/playwright.yml).
+- Runs on push, pull request, or manual dispatch.
+- Installs dependencies, sets up Chromium, runs API and UI suites, and uploads reports and failure traces.
+
+### 5. Unique Test Data Generation (Faker)
+- Localized test data generator [`helpers/fakerDataHelper.ts`](file:///c:/Users/Admin/.gemini/antigravity/scratch/Xterminate-v2-automation-tests/helpers/fakerDataHelper.ts) powered by `@faker-js/faker`.
+- Generates unique customer names, UEN codes, Singapore phone numbers (`+65 8xxxxxxx`), email addresses, and postal codes to eliminate duplicate key collision.
+
+### 6. Robust Error Handling & Diagnostics
+- Automatic retries configured in `playwright.config.ts`: `retries: process.env.CI ? 2 : 1`.
+- Automatic capture of `screenshot`, `trace.zip`, and `video.webm` on test failures.
+- Structured execution logging via [`helpers/logger.ts`](file:///c:/Users/Admin/.gemini/antigravity/scratch/Xterminate-v2-automation-tests/helpers/logger.ts) written to console and `reports/execution.log`.
+
+### 7. Security Best Practices
+- Zero credentials or auth tokens committed to Git.
+- `ADMIN_USERNAME`, `ADMIN_PASSWORD`, and API tokens are dynamically read from environment variables or GitHub Secrets.
+- `.env` and `.auth/` directory are strictly ignored by [`.gitignore`](file:///c:/Users/Admin/.gemini/antigravity/scratch/Xterminate-v2-automation-tests/.gitignore).
+- Clean template provided in [`.env.example`](file:///c:/Users/Admin/.gemini/antigravity/scratch/Xterminate-v2-automation-tests/.env.example).
+
+### 8. Deterministic Data Validation
+- Exact data matching engine in [`helpers/deterministicValidator.ts`](file:///c:/Users/Admin/.gemini/antigravity/scratch/Xterminate-v2-automation-tests/helpers/deterministicValidator.ts).
+- Normalizes currency formats (`$120.50` == `120.5`), date formats (`2026-10-23` == `23/10/2026`), and phone numbers without external network dependencies.
+- AI/LLM semantic validation is made strictly **optional** (governed by `ENABLE_LLM_VALIDATION=false`), ensuring 100% deterministic and fast test execution.
+
+---
+
+## ⚡ Execution Commands
+
 ```powershell
-# Run all direct API contract tests (57 tests across all 5 modules)
+# Run all API tests (57 tests across 5 modules + SLA matrix)
 npm run test:api
 
-# Run all UI browser tests with single authentication setup
+# Run all UI browser tests (authenticated via 00_setup/auth.setup.ts)
 npm run test:ui
 
-# Run all tests (API + UI)
-npm test
-```
+# Run Module-wise:
+npm run test:auth          # 01 Authentication Lifecycle
+npm run test:customer      # 02 Customer (CRM) UI & API
+npm run test:visits        # 03 Visits (Operations) UI & API
+npm run test:finance       # 04 Finance (Quotations & Invoices)
+npm run test:operations    # 05 Operations & System Settings
 
-### 2. Run Individual Modules
-```powershell
-# Module 01: Authentication Lifecycle
-npm run test:auth
+# Run Performance Load Test (JMeter)
+.\performance\run_jmeter_test.ps1 -Threads 25 -RampUp 15 -Loops 2
 
-# Module 02: Customer (CRM)
-npm run test:customer
-
-# Module 03: Visits (Operations)
-npm run test:visits
-
-# Module 04: Finance (Quotations & Invoices)
-npm run test:finance
-
-# Module 05: Operations & System (Enquiries, Suppliers, Settings, Universal Search)
-npm run test:operations
-```
-
-### 3. Interactive & Debug Modes
-```powershell
-# Run in Headed Browser (observe browser execution)
-npm run test:headed
-
-# Run in Interactive Playwright UI Test Runner
-npm run test:interactive
-
-# Open the latest Playwright HTML execution report
+# Open HTML Test Report
 npm run test:report
 ```
-
----
-
-## 🔒 Session & Performance Optimization
-
-1. **One-Time UI Authentication**:
-   - `00_setup/auth.setup.ts` logs in once and saves session storage to `.auth/user.json`.
-   - All subsequent UI browser tests reuse the state without repeating the login flow.
-
-2. **Smart API Token Caching**:
-   - `helpers/apiAuthHelper.ts` caches JWT bearer tokens to `.auth/api_token.json`.
-   - Prevents backend rate limiting and eliminates login overhead on headless API tests.
-
-3. **Resilient Rate-Limit Backoff**:
-   - Includes automatic exponential backoff on HTTP 429 status codes.
-
----
-
-## 📋 API Catalog & Postman Collection
-- Full 49 v2 API endpoints documented in [`data/api_endpoints_catalog.json`](file:///c:/Users/Admin/.gemini/antigravity/scratch/Xterminate-v2-automation-tests/data/api_endpoints_catalog.json).
-- Ready-to-import Postman collection in [`data/postman/xterminate_v2_complete_postman_collection.json`](file:///c:/Users/Admin/.gemini/antigravity/scratch/Xterminate-v2-automation-tests/data/postman/xterminate_v2_complete_postman_collection.json).

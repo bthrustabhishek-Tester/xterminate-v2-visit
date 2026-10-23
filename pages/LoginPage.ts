@@ -21,8 +21,8 @@ export class LoginPage extends BasePage {
   }
 
   async login(username?: string, password?: string) {
-    const user = username || process.env.ADMIN_USERNAME || 'admin@businessthrust.com.sg';
-    const pass = password || process.env.ADMIN_PASSWORD || 'password123';
+    const user = username || process.env.ADMIN_USERNAME || process.env.ADMIN_EMAIL || '';
+    const pass = password || process.env.ADMIN_PASSWORD || '';
 
     // If fresh page from storageState, navigate to /admin/dashboard or /admin/visit
     if (this.page.url() === 'about:blank') {

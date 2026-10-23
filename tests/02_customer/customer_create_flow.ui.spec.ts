@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 import { CustomerCreatePage } from '../../pages/CustomerCreatePage';
 import { customerTestData } from '../../data/customerTestData';
+import { FakerDataHelper } from '../../helpers/fakerDataHelper';
 
 test.describe('Module 11B: Customer (CRM) Create UI & Form Automation (8 Scenarios)', () => {
   let loginPage: LoginPage;
@@ -63,5 +64,17 @@ test.describe('Module 11B: Customer (CRM) Create UI & Form Automation (8 Scenari
     await customerCreatePage.clickCancel();
     await page.waitForURL(/.*admin\/customer/, { timeout: 12000 });
     expect(page.url()).toContain('/admin/customer');
+  });
+
+  test('TC-CUST-CREATE-009: Fill form using Faker-generated dynamic customer profile', async ({ page }) => {
+    const fakeCustomer = FakerDataHelper.generateCustomer('company');
+    await customerCreatePage.selectCustomerType('company');
+    await customerCreatePage.displayNameInput.fill(fakeCustomer.displayName);
+    await customerCreatePage.emailInput.fill(fakeCustomer.email);
+    await customerCreatePage.phoneInput.fill(fakeCustomer.phone);
+
+    await expect(customerCreatePage.displayNameInput).toHaveValue(fakeCustomer.displayName);
+    await expect(customerCreatePage.emailInput).toHaveValue(fakeCustomer.email);
+    await expect(customerCreatePage.phoneInput).toHaveValue(fakeCustomer.phone);
   });
 });

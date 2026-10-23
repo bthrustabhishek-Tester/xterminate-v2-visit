@@ -1,0 +1,78 @@
+name: Playwright Test Automation & API Contract CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: 'Test Suite Scope'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - api
+          - ui
+          - customer
+          - visits
+          - finance
+
+jobs:
+  test:
+    name: Run Automation Test Suites
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+
+    env:
+      BASE_URL: ${{ secrets.BASE_URL || 'https://dev-xterminate-v2.businessthrust.com.sg' }}
+      ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
+      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+      HEADLESS: 'true'
+      CI: 'true'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers & OS Dependencies
+        run: npx playwright install --with-deps chromium
+
+      - name: Execute API Contract Tests
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.test_type == 'all' || inputs.test_type == 'api' }}
+        run: npm run test:api
+
+      - name: Execute UI Browser Tests
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.test_type == 'all' || inputs.test_type == 'ui' }}
+        run: npm run test:ui
+
+      - name: Execute Module-Specific Tests
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.test_type != 'all' && inputs.test_type != 'api' && inputs.test_type != 'ui' }}
+        run: npm run test:${{ inputs.test_type }}
+
+      - name: Upload Playwright Test Report Artifacts
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-execution-report
+          path: playwright-report/
+          retention-days: 14
+
+      - name: Upload Failure Traces & Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-failure-artifacts
+          path: test-results/
+          retention-days: 7

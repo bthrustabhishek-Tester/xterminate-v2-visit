@@ -11,8 +11,8 @@ import { APIRequestContext } from '@playwright/test';
  */
 
 export const BASE_URL = process.env.BASE_URL || 'https://dev-xterminate-v2.businessthrust.com.sg';
-export const AUTH_EMAIL = 'admin@genicteams.com';
-export const AUTH_PASSWORD = process.env.ADMIN_PASSWORD || 'y1*eBBD{KIySA7m1';
+export const AUTH_EMAIL = process.env.ADMIN_EMAIL || process.env.ADMIN_USERNAME || 'admin@genicteams.com';
+export const AUTH_PASSWORD = process.env.ADMIN_PASSWORD || '';
 
 const AUTH_DIR = path.join(__dirname, '..', '.auth');
 const TOKEN_CACHE_FILE = path.join(AUTH_DIR, 'api_token.json');
