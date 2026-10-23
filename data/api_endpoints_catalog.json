@@ -1,0 +1,287 @@
+[
+  {
+    "category": "Customer v2 APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/customer",
+    "description": "Paginated customer listing with linked sites, contact info and barcodes",
+    "params": {
+      "current_page": "1",
+      "per_page": "500"
+    }
+  },
+  {
+    "category": "Customer v2 APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/customer/lookup",
+    "description": "Fast lookup customer dropdown list with IDs, barcodes and display names",
+    "params": {
+      "include_inactive": "1"
+    }
+  },
+  {
+    "category": "Customer v2 APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/customer/options",
+    "description": "Options dictionary for customer creation (categories, salutations, payment terms, account managers)"
+  },
+  {
+    "category": "Customer v2 APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/customer/summary",
+    "description": "Monthly summary metrics and counters for customers",
+    "params": {
+      "period": "month"
+    }
+  },
+  {
+    "category": "Customer v2 APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/customer/groups",
+    "description": "Customer groups list"
+  },
+  {
+    "category": "Customer v2 APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/customer/{id}",
+    "description": "Full customer detail record with linked site locations, contact persons, and preferences"
+  },
+  {
+    "category": "Customer Validation APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/phone/check",
+    "description": "Validates phone numbers for formatting and duplicates",
+    "params": {
+      "mobile": "+65-64697979"
+    }
+  },
+  {
+    "category": "Customer Validation APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/validate/customer/any-field",
+    "description": "Live validation of customer form fields (e.g. company name, display name, email uniqueness)",
+    "params": {
+      "filter_type": "contact",
+      "field": "company_name",
+      "value": "Test Company"
+    }
+  },
+  {
+    "category": "Customer Property & Site APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/property",
+    "description": "Properties and site locations belonging to a specific customer",
+    "params": {
+      "tab": "property",
+      "thead_type": "customer_properties_tab",
+      "current_page": "1",
+      "per_page": "20",
+      "customer": "{id}"
+    }
+  },
+  {
+    "category": "Customer Property & Site APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/property/tree/{id}",
+    "description": "Hierarchical location tree of buildings, units, and levels for a customer"
+  },
+  {
+    "category": "Customer Property & Site APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/job/customer/{id}/visits",
+    "description": "All visits scheduled or completed for a specific customer",
+    "params": {
+      "tab": "visit",
+      "thead_type": "visits_tab",
+      "current_page": "1",
+      "per_page": "20",
+      "customer": "{id}"
+    }
+  },
+  {
+    "category": "Enquiry Module APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/enquiry",
+    "description": "Enquiry listing with pagination, status, and lead sources",
+    "params": {
+      "current_page": "1",
+      "per_page": "20"
+    }
+  },
+  {
+    "category": "Enquiry Module APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/enquiry/options",
+    "description": "Metadata options for enquiry creation (status, lead sources, priorities)",
+    "params": {
+      "enquiry": "0",
+      "duplicate": "0"
+    }
+  },
+  {
+    "category": "Enquiry Module APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/enquiry/summary",
+    "description": "Monthly enquiry conversion stats and volume metrics",
+    "params": {
+      "period": "month"
+    }
+  },
+  {
+    "category": "Enquiry Module APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/setting/master/enquiry-category",
+    "description": "Enquiry categories master list"
+  },
+  {
+    "category": "Enquiry Module APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/tags/enquiry",
+    "description": "Tags registered for enquiries"
+  },
+  {
+    "category": "Supplier Module APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/supplier",
+    "description": "Supplier listing with contact information, payment terms, and categories",
+    "params": {
+      "current_page": "1",
+      "per_page": "20"
+    }
+  },
+  {
+    "category": "Supplier Module APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/supplier/{id}",
+    "description": "Supplier profile and configuration by ID"
+  },
+  {
+    "category": "Supplier Module APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/supplier/options",
+    "description": "Options dictionary for supplier creation and management"
+  },
+  {
+    "category": "Supplier Module APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/supplier/summary",
+    "description": "Monthly supplier summary statistics",
+    "params": {
+      "period": "month"
+    }
+  },
+  {
+    "category": "Supplier Module APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/supplier/address-listing",
+    "description": "Address book locations registered for a supplier",
+    "params": {
+      "tab": "address",
+      "thead_type": "supplier_address_tab",
+      "current_page": "1",
+      "per_page": "20",
+      "supplier": "{id}"
+    }
+  },
+  {
+    "category": "Customer Asset & Equipment APIs",
+    "method": "POST",
+    "endpoint": "/api/v2/client-equipment/raise-ticket",
+    "description": "Raises a corrective maintenance or service ticket against a customer asset",
+    "samplePayload": {
+      "ids": [678],
+      "title": "Corrective repair — 1 customer asset(s)",
+      "priority": 3,
+      "description": null,
+      "started_at": "2026-10-23 09:00",
+      "is_service_form_required": false
+    }
+  },
+  {
+    "category": "Visit / Job Core & Scheduling APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/job/options",
+    "description": "Visit creation options (job types, priorities, ticket types, billing rules)"
+  },
+  {
+    "category": "Visit / Job Core & Scheduling APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/job/stats",
+    "description": "High-level summary statistics and counter metrics for visits"
+  },
+  {
+    "category": "Visit / Job Core & Scheduling APIs",
+    "method": "POST",
+    "endpoint": "/api/v2/job/availability",
+    "description": "Calculates technician and slot availability for given date/time ranges",
+    "samplePayload": {
+      "slots": [
+        {
+          "started_at": "2026-10-23 09:00:00",
+          "finished_at": "2026-10-23 11:00:00"
+        }
+      ],
+      "skills": [],
+      "services": [],
+      "tools": [],
+      "ignore_visit": null,
+      "properties": []
+    }
+  },
+  {
+    "category": "Visit / Job Core & Scheduling APIs",
+    "method": "POST",
+    "endpoint": "/api/v2/job/recurrence/preview",
+    "description": "Generates schedule occurrence previews based on recurrence rules",
+    "samplePayload": {
+      "frequency": 1,
+      "option_mode": null,
+      "repeat_interval": null,
+      "unit": null,
+      "weekdays": [],
+      "monthly_pattern": 1,
+      "end_mode": 2,
+      "occurrence": 12,
+      "start_date": "2026-10-23",
+      "end_date": null,
+      "start_time": "09:00",
+      "duration_minutes": 120,
+      "skip_public_holidays": false,
+      "skip_weekends": false,
+      "non_working_shift": 1,
+      "buffer_value": 0,
+      "buffer_unit": null,
+      "end_policy": 3,
+      "excluded_dates": [],
+      "occurrence_overrides": [],
+      "visit_id": null
+    }
+  },
+  {
+    "category": "Global Search & Form Layouts",
+    "method": "GET",
+    "endpoint": "/api/v2/global-search",
+    "description": "Global quick search across modules",
+    "params": {
+      "query": "100",
+      "module": "customer"
+    }
+  },
+  {
+    "category": "Global Search & Form Layouts",
+    "method": "GET",
+    "endpoint": "/api/v2/setting/form-layout/customer",
+    "description": "Form layout configuration for Customer creation"
+  },
+  {
+    "category": "Global Search & Form Layouts",
+    "method": "GET",
+    "endpoint": "/api/v2/setting/form-layout/enquiry",
+    "description": "Form layout configuration for Enquiry creation"
+  },
+  {
+    "category": "Global Search & Form Layouts",
+    "method": "GET",
+    "endpoint": "/api/v2/setting/form-layout/visit",
+    "description": "Form layout configuration for Visit creation"
+  }
+]
