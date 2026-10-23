@@ -30,13 +30,13 @@ export class CustomerListPage extends BasePage {
     this.filterButton = page.locator('button[title*="Filter" i], button:has-text("Filter")').first();
     this.editColumnsButton = page.locator('button[title*="Edit columns" i]').first();
 
-    // Metric cards using accessible regex names
-    this.allCustomersCard = page.getByRole('button', { name: /All Customers/i }).first();
-    this.activeCustomersCard = page.getByRole('button', { name: /^Active/i }).first();
-    this.inactiveCustomersCard = page.getByRole('button', { name: /^Inactive/i }).first();
-    this.companyCustomersCard = page.getByRole('button', { name: /^Company/i }).first();
-    this.individualCustomersCard = page.getByRole('button', { name: /^Individual/i }).first();
-    this.archivedCustomersCard = page.getByRole('button', { name: /^Archived/i }).first();
+    // Metric cards using accessible regex or text matchers
+    this.allCustomersCard = page.locator('button:has-text("All Customers"), [role="button"]:has-text("All Customers")').first();
+    this.activeCustomersCard = page.locator('button:has-text("Active"), [role="button"]:has-text("Active")').first();
+    this.inactiveCustomersCard = page.locator('button:has-text("Inactive"), [role="button"]:has-text("Inactive")').first();
+    this.companyCustomersCard = page.locator('button:has-text("Company"), [role="button"]:has-text("Company")').first();
+    this.individualCustomersCard = page.locator('button:has-text("Individual"), [role="button"]:has-text("Individual")').first();
+    this.archivedCustomersCard = page.locator('button:has-text("Archived"), [role="button"]:has-text("Archived")').first();
 
     this.customerTable = page.locator('table, .v-data-table').first();
     this.tableRows = page.locator('tbody tr:not([colspan])');
@@ -44,7 +44,14 @@ export class CustomerListPage extends BasePage {
 
   async goto() {
     await this.page.goto('/admin/customer', { waitUntil: 'domcontentloaded' });
-    await this.customerTable.waitFor({ state: 'visible', timeout: 20000 }).catch(() => {});
+    await this.customerTable.waitFor({ state: 'visible', timeout: 25000 }).catch(() => {});
+    // Wait for skeleton loaders to disappear and content to render
+    const skeleton = this.page.locator('.v-skeleton-loader, [role="alert"]:has-text("Loading")');
+    if (await skeleton.count() > 0) {
+      await skeleton.first().waitFor({ state: 'detached', timeout: 25000 }).catch(() => {});
+    }
+    // Wait for at least one table row or metric card to be ready
+    await this.allCustomersCard.waitFor({ state: 'visible', timeout: 15000 }).catch(() => {});
     await this.waitForPageReady();
   }
 

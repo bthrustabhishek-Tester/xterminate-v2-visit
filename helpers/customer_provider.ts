@@ -9,6 +9,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { APIRequestContext } from '@playwright/test';
+import { getAuthToken } from './apiAuthHelper';
 
 export interface CustomerSite {
   id: number;
@@ -112,7 +113,7 @@ export class CustomerProvider {
     }
   ): Promise<CustomerProfile[]> {
     const baseUrl = (options?.baseUrl || 'https://dev-xterminate-v2.businessthrust.com.sg').replace(/\/$/, '');
-    const token = options?.token || DEFAULT_BEARER_TOKEN;
+    const token = options?.token || (await getAuthToken(request));
     const perPage = options?.perPage ?? 500;
     const updateCache = options?.updateCache ?? true;
 
