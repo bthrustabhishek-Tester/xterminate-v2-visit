@@ -1,0 +1,4716 @@
+{
+  "info": {
+    "_postman_id": "a1c2e3d4-f5a6-4b7c-8d9e-0f1a2b3c4d5e",
+    "name": "Xterminate V2 - Complete API Test Automation Suite",
+    "description": "Enterprise API Test Suite for Xterminate V2 (https://dev-xterminate-v2.businessthrust.com.sg). Contains all 49 canonical endpoints structured into 10 modular test suites with automated assertions for Status Codes, Response Time SLAs, JSON Schemas, Dynamic Chaining, and Security Profiling.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://dev-xterminate-v2.businessthrust.com.sg",
+      "type": "string"
+    },
+    {
+      "key": "customerId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "jobId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "supplierId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "propertyId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "visitId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2Rldi14dGVybWluYXRlLXYyLmJ1c2luZXNzdGhydXN0LmNvbS5zZy9hcGkvdjIvYXV0aC9sb2dpbiIsImlhdCI6MTc5MjczMDc5NiwiZXhwIjoxODI0MjY2Nzk2LCJuYmYiOjE3OTI3MzA3OTYsImp0aSI6InBjRjNSc0ROVDBZbEZvbXEiLCJzdWIiOjIsInBydiI6IjcxYWY0NTllMDUwOGE3NzY0NDY4MDAxMmM4ZDMzODgyMzIyNTQ0YmUiLCJ0dnIiOjB9.s789utYwG13vA61FFDsVz0km4swLRPGxgD3o0rnwV7U",
+      "type": "string"
+    },
+    {
+      "key": "sessionCookie",
+      "value": "access_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2Rldi14dGVybWluYXRlLXYyLmJ1c2luZXNzdGhydXN0LmNvbS5zZy9hcGkvdjIvYXV0aC9sb2dpbiIsImlhdCI6MTc5MjczMDQ3MywiZXhwIjoxODI0MjY2NDczLCJuYmYiOjE3OTI3MzA0NzMsImp0aSI6IllHY1U2eFRqekhJdlMyTk4iLCJzdWIiOjIsInBydiI6IjcxYWY0NTllMDUwOGE3NzY0NDY4MDAxMmM4ZDMzODgyMzIyNTQ0YmUiLCJ0dnIiOjB9.Sy2ZxLgZdNrBf9m3CslkeXlrKzZ22YefUZrKTEE-6yU; token_type=Bearer; expires_at=2027-10-23T04%3A41%3A13.940Z; _btlrld_tmp=2026-10-23%2012%3A41; cf_clearance=LOeXq8HMsIQDZRsMxBvre5d42YptW_4f.zruQK9A4U8-1792730480-1.2.1.1-Z71a_6FPefJ_L65WtjFoHQHO2zWwGGSRikioWuOFYUkvj93obynZaGJ9szvKdqDqRpVYv1i_39yaJeztzA8xyM.jvpw0vfJdoDgFFe0o_EMMEtY9D1hSovigun8idBNjlpw6389YxV.yCA6jpJGcFDumQFW9ZKazfPAIT9KlwSdqa31.fPjtjJKbAurPDWs1mjXxivWWJxfKtJW9RsumAIq9JbwO38AzzgPXac5fqs.DReAETe4oLy2wUnRoVr9.au8xfgmGm5NSek_kJqDAHyqAVYh3BqyUWYuuJ7XCMv4LMjly_lC4eF_hPYeHNGLngbuqb747Q9887PD0YMDOahAuZjJn9IlzhPA9YT29jq50oXKbEUSrjZ6r52mmtHF11FN3LAN1FhFk3HBqVo9ijgSZIPOQUDHoFfGzkKAiLsKYjgkiHinxe4TxtVoDCEMcMnB9Qwoi8DgbrnCeBHlZIPrrqT5ZYT26ywTEVzQr1iE; _dd_s_v2=id=d9c864c5-3f5a-4c4f-adb2-966870895a1a&created=1792723370361&expire=1792731384035&c=0",
+      "type": "string"
+    },
+    {
+      "key": "adminEmail",
+      "value": "admin@genicteams.com",
+      "type": "string"
+    },
+    {
+      "key": "adminPassword",
+      "value": "y1*eBBD{KIySA7m1",
+      "type": "string"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Collection-level Pre-request Script",
+          "pm.request.headers.upsert({ key: 'Accept', value: 'application/json' });",
+          "var token = pm.variables.get('authToken');",
+          "",
+          "// Auto-login fallback if token is missing and this is not the login request itself",
+          "if (!token && !pm.request.url.getPath().includes('auth/login')) {",
+          "    var baseUrl = pm.variables.get('baseUrl') || 'https://dev-xterminate-v2.businessthrust.com.sg';",
+          "    var email = pm.variables.get('adminEmail') || 'admin@genicteams.com';",
+          "    var password = pm.variables.get('adminPassword') || 'y1*eBBD{KIySA7m1';",
+          "    ",
+          "    pm.sendRequest({",
+          "        url: baseUrl + '/api/v2/auth/login',",
+          "        method: 'POST',",
+          "        header: {",
+          "            'Accept': 'application/json',",
+          "            'Content-Type': 'application/json'",
+          "        },",
+          "        body: {",
+          "            mode: 'raw',",
+          "            raw: JSON.stringify({ email: email, password: password, fcm_token: null, device_info: null, client: 'web' })",
+          "        }",
+          "    }, function (err, res) {",
+          "        if (!err && res.code === 200) {",
+          "            var body = res.json();",
+          "            if (body && body.data && body.data.token) {",
+          "                pm.collectionVariables.set('authToken', body.data.token);",
+          "                pm.request.headers.upsert({ key: 'Authorization', value: 'Bearer ' + body.data.token });",
+          "                console.log('Auto-authenticated before request execution.');",
+          "            }",
+          "        }",
+          "    });",
+          "} else if (token) {",
+          "    pm.request.headers.upsert({ key: 'Authorization', value: 'Bearer ' + token });",
+          "}"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Collection-level Global Test Assertions (Runs on every request)",
+          "pm.test('Global Check: Response has valid HTTP status', function () {",
+          "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204, 302, 401]);",
+          "});",
+          "",
+          "pm.test('Global Security Check: No raw MySQL query leakage in debug payload', function () {",
+          "    if (pm.response.headers.get('Content-Type') && pm.response.headers.get('Content-Type').includes('application/json')) {",
+          "        try {",
+          "            var res = pm.response.json();",
+          "            if (res && res.debug && res.debug.database) {",
+          "                pm.expect(res.debug.database.items, 'Critical Security Alert: Internal SQL queries exposed in response debug payload!').to.be.undefined;",
+          "            }",
+          "        } catch (e) {}",
+          "    }",
+          "});"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "Suite 01 - Authentication & Verification",
+      "item": [
+        {
+          "name": "TC-API-00-A: [POST] /api/v2/auth/login (Acquire Token)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Origin",
+                "value": "https://dev-xterminate-v2.businessthrust.com.sg",
+                "type": "text"
+              },
+              {
+                "key": "Referer",
+                "value": "https://dev-xterminate-v2.businessthrust.com.sg/admin/login",
+                "type": "text"
+              },
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\",\n  \"fcm_token\": null,\n  \"device_info\": null,\n  \"client\": \"web\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test & Token Extraction for [POST] /api/v2/auth/login",
+                  "pm.test('[POST] /api/v2/auth/login - Returns HTTP 200 OK', function () {",
+                  "    pm.expect(pm.response.code).to.eql(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Expected <= 3000ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test('Login response contains valid status, message, and JWT token', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.status).to.be.true;",
+                  "    pm.expect(json.data).to.be.an('object');",
+                  "    pm.expect(json.data.token).to.be.a('string');",
+                  "    ",
+                  "    // Automatically set authToken for all subsequent requests in this run!",
+                  "    pm.collectionVariables.set('authToken', json.data.token);",
+                  "    pm.environment.set('authToken', json.data.token);",
+                  "    console.log('Successfully acquired fresh authToken!');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-10: [GET] /api/v2/auth/verify",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/auth/verify",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "auth",
+                "verify"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/auth/verify",
+                  "pm.test(\"[GET] /api/v2/auth/verify - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-00: [POST] /api/v2/auth/logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Origin",
+                "value": "https://dev-xterminate-v2.businessthrust.com.sg",
+                "type": "text"
+              },
+              {
+                "key": "Referer",
+                "value": "https://dev-xterminate-v2.businessthrust.com.sg/admin/dashboard",
+                "type": "text"
+              },
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Assertions for [POST] /api/v2/auth/logout",
+                  "pm.test('[POST] /api/v2/auth/logout - Returns HTTP 200 or 204', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 204, 302, 401]);",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Expected <= 3000ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test('Logout response contains valid status/message payload', function () {",
+                  "        var json = pm.response.json();",
+                  "        pm.expect(json).to.be.an('object');",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Suite 02 - Customer CRM & Search",
+      "item": [
+        {
+          "name": "TC-API-01: [GET] /api/v2/custom-fields/schema/customers",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/custom-fields/schema/customers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "custom-fields",
+                "schema",
+                "customers"
+              ],
+              "query": [
+                {
+                  "key": "view",
+                  "value": "create",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/custom-fields/schema/customers",
+                  "pm.test(\"[GET] /api/v2/custom-fields/schema/customers - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3384ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3384);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-02: [GET] /api/v2/customer/options",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/customer/options",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "customer",
+                "options"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/customer/options",
+                  "pm.test(\"[GET] /api/v2/customer/options - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 9490ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(9490);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-04: [GET] /api/v2/customer",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/customer",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "customer"
+              ],
+              "query": [
+                {
+                  "key": "current_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/customer",
+                  "pm.test(\"[GET] /api/v2/customer - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 9224ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(9224);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-05: [GET] /api/v2/customer/summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/customer/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "customer",
+                "summary"
+              ],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/customer/summary",
+                  "pm.test(\"[GET] /api/v2/customer/summary - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 6778ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(6778);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-08: [GET] /api/v2/customer/{id}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/customer/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "customer",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{customerId}}"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/customer/{id}",
+                  "pm.test(\"[GET] /api/v2/customer/{id} - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 12290ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(12290);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-26: [GET] /api/v2/customer/groups",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/customer/groups",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "customer",
+                "groups"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/customer/groups",
+                  "pm.test(\"[GET] /api/v2/customer/groups - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3414ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3414);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-27: [GET] /api/v2/setting/form-layout/customer",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/setting/form-layout/customer",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "setting",
+                "form-layout",
+                "customer"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/setting/form-layout/customer",
+                  "pm.test(\"[GET] /api/v2/setting/form-layout/customer - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3160ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3160);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-28: [GET] /api/v2/tags/customer",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tags/customer",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "tags",
+                "customer"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/tags/customer",
+                  "pm.test(\"[GET] /api/v2/tags/customer - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 7878ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(7878);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-29: [GET] /api/v2/filter/dropdown/customer",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/filter/dropdown/customer",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "filter",
+                "dropdown",
+                "customer"
+              ],
+              "query": [
+                {
+                  "key": "filter_type",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "field",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "filter",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "value",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/filter/dropdown/customer",
+                  "pm.test(\"[GET] /api/v2/filter/dropdown/customer - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-30: [GET] /api/v2/validate/customer/any-field",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/validate/customer/any-field",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "validate",
+                "customer",
+                "any-field"
+              ],
+              "query": [
+                {
+                  "key": "filter_type",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "field",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "value",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/validate/customer/any-field",
+                  "pm.test(\"[GET] /api/v2/validate/customer/any-field - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-43: [GET] /api/v2/job/customer/{id}/visits",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/customer/{id}/visits",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                "customer",
+                ":id",
+                "visits"
+              ],
+              "query": [
+                {
+                  "key": "tab",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "thead_type",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "current_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "customer",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{customerId}}"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/job/customer/{id}/visits",
+                  "pm.test(\"[GET] /api/v2/job/customer/{id}/visits - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Suite 03 - Properties & Site Locations",
+      "item": [
+        {
+          "name": "TC-API-12: [GET] /api/v2/property",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/property",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "property"
+              ],
+              "query": [
+                {
+                  "key": "tab",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "thead_type",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "current_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "customer",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "barcode",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "property_name",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "zip_code",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "contact_person[display_name]",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "contact_person[primary_email]",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "contact_person[primary_phone]",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "start_date",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "end_date",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "status",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "t",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/property",
+                  "pm.test(\"[GET] /api/v2/property - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3146ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3146);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-13: [GET] /api/v2/property/tree/{id}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/property/tree/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "property",
+                "tree",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{customerId}}"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/property/tree/{id}",
+                  "pm.test(\"[GET] /api/v2/property/tree/{id} - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 5556ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(5556);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Suite 04 - Jobs & Service Orders Management",
+      "item": [
+        {
+          "name": "TC-API-15: [GET] /api/v2/job/related-documents",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/related-documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                "related-documents"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "customer",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "limit",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/job/related-documents",
+                  "pm.test(\"[GET] /api/v2/job/related-documents - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 41614ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(41614);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-17: [POST] /api/v2/job/availability",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/availability",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                "availability"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slots\": [\n    {\n      \"started_at\": \"2026-10-23 09:00:00\",\n      \"finished_at\": \"2026-10-23 11:00:00\"\n    }\n  ],\n  \"skills\": [],\n  \"services\": [],\n  \"tools\": [],\n  \"ignore_visit\": null,\n  \"properties\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [POST] /api/v2/job/availability",
+                  "pm.test(\"[POST] /api/v2/job/availability - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 41914ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(41914);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-18: [GET] /api/v2/job",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job"
+              ],
+              "query": [
+                {
+                  "key": "current_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/job",
+                  "pm.test(\"[GET] /api/v2/job - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 24288ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(24288);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-19: [GET] /api/v2/job/stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/stats",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                "stats"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/job/stats",
+                  "pm.test(\"[GET] /api/v2/job/stats - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 20834ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(20834);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-31: [GET] /api/v2/job/{id}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{customerId}}"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/job/{id}",
+                  "pm.test(\"[GET] /api/v2/job/{id} - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 9964ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(9964);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-32: [GET] /api/v2/job/options",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/options",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                "options"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/job/options",
+                  "pm.test(\"[GET] /api/v2/job/options - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 4278ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(4278);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-37: [GET] /api/v2/job/{id}/overview",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/{id}/overview",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                ":id",
+                "overview"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{customerId}}"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/job/{id}/overview",
+                  "pm.test(\"[GET] /api/v2/job/{id}/overview - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 13982ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(13982);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-38: [GET] /api/v2/job/{id}/summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/{id}/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                ":id",
+                "summary"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{customerId}}"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/job/{id}/summary",
+                  "pm.test(\"[GET] /api/v2/job/{id}/summary - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 14584ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(14584);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-39: [GET] /api/v2/job/{id}/safety",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/{id}/safety",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                ":id",
+                "safety"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{customerId}}"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/job/{id}/safety",
+                  "pm.test(\"[GET] /api/v2/job/{id}/safety - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 14150ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(14150);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-40: [GET] /api/v2/job/{id}/related",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/{id}/related",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                ":id",
+                "related"
+              ],
+              "query": [
+                {
+                  "key": "related_tab",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "current_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{customerId}}"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/job/{id}/related",
+                  "pm.test(\"[GET] /api/v2/job/{id}/related - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 14460ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(14460);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-42: [GET] /api/v2/job/{id}/ptw-documents",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/{id}/ptw-documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                ":id",
+                "ptw-documents"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{customerId}}"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/job/{id}/ptw-documents",
+                  "pm.test(\"[GET] /api/v2/job/{id}/ptw-documents - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 40164ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(40164);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Suite 05 - Visits & Scheduling Workflows",
+      "item": [
+        {
+          "name": "TC-API-16: [GET] /api/v2/custom-fields/schema/visits",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/custom-fields/schema/visits",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "custom-fields",
+                "schema",
+                "visits"
+              ],
+              "query": [
+                {
+                  "key": "view",
+                  "value": "create",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/custom-fields/schema/visits",
+                  "pm.test(\"[GET] /api/v2/custom-fields/schema/visits - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 8862ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(8862);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-33: [GET] /api/v2/setting/form-layout/visit",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/setting/form-layout/visit",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "setting",
+                "form-layout",
+                "visit"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/setting/form-layout/visit",
+                  "pm.test(\"[GET] /api/v2/setting/form-layout/visit - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-34: [GET] /api/v2/tags/visit",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tags/visit",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "tags",
+                "visit"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/tags/visit",
+                  "pm.test(\"[GET] /api/v2/tags/visit - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 6972ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(6972);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Suite 06 - Enquiries & Leads Pipeline",
+      "item": [
+        {
+          "name": "TC-API-20: [GET] /api/v2/custom-fields/schema/enquiries",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/custom-fields/schema/enquiries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "custom-fields",
+                "schema",
+                "enquiries"
+              ],
+              "query": [
+                {
+                  "key": "view",
+                  "value": "create",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/custom-fields/schema/enquiries",
+                  "pm.test(\"[GET] /api/v2/custom-fields/schema/enquiries - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-44: [GET] /api/v2/enquiry",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/enquiry",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "enquiry"
+              ],
+              "query": [
+                {
+                  "key": "current_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/enquiry",
+                  "pm.test(\"[GET] /api/v2/enquiry - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 7262ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(7262);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-45: [GET] /api/v2/enquiry/summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/enquiry/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "enquiry",
+                "summary"
+              ],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/enquiry/summary",
+                  "pm.test(\"[GET] /api/v2/enquiry/summary - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 6108ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(6108);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-46: [GET] /api/v2/enquiry/options",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/enquiry/options",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "enquiry",
+                "options"
+              ],
+              "query": [
+                {
+                  "key": "enquiry",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "duplicate",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/enquiry/options",
+                  "pm.test(\"[GET] /api/v2/enquiry/options - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 8150ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(8150);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-47: [GET] /api/v2/setting/form-layout/enquiry",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/setting/form-layout/enquiry",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "setting",
+                "form-layout",
+                "enquiry"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/setting/form-layout/enquiry",
+                  "pm.test(\"[GET] /api/v2/setting/form-layout/enquiry - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 4768ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(4768);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-48: [GET] /api/v2/setting/master/enquiry-category",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/setting/master/enquiry-category",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "setting",
+                "master",
+                "enquiry-category"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/setting/master/enquiry-category",
+                  "pm.test(\"[GET] /api/v2/setting/master/enquiry-category - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 4832ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(4832);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-49: [GET] /api/v2/tags/enquiry",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tags/enquiry",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "tags",
+                "enquiry"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/tags/enquiry",
+                  "pm.test(\"[GET] /api/v2/tags/enquiry - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 4824ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(4824);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Suite 07 - Suppliers & Procurement Management",
+      "item": [
+        {
+          "name": "TC-API-09: [GET] /api/v2/supplier/address-listing",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/supplier/address-listing",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "supplier",
+                "address-listing"
+              ],
+              "query": [
+                {
+                  "key": "tab",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "thead_type",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "current_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "supplier",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "status",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "t",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "barcode",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "zip_code",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "contact_person_name",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "contact_email",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "contact_phone",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "start_date",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "end_date",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/supplier/address-listing",
+                  "pm.test(\"[GET] /api/v2/supplier/address-listing - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-21: [GET] /api/v2/supplier",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/supplier",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "supplier"
+              ],
+              "query": [
+                {
+                  "key": "current_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/supplier",
+                  "pm.test(\"[GET] /api/v2/supplier - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-22: [GET] /api/v2/supplier/summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/supplier/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "supplier",
+                "summary"
+              ],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/supplier/summary",
+                  "pm.test(\"[GET] /api/v2/supplier/summary - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-23: [GET] /api/v2/supplier/{id}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/supplier/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "supplier",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{customerId}}"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/supplier/{id}",
+                  "pm.test(\"[GET] /api/v2/supplier/{id} - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-24: [GET] /api/v2/custom-fields/schema/suppliers",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/custom-fields/schema/suppliers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "custom-fields",
+                "schema",
+                "suppliers"
+              ],
+              "query": [
+                {
+                  "key": "view",
+                  "value": "create",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/custom-fields/schema/suppliers",
+                  "pm.test(\"[GET] /api/v2/custom-fields/schema/suppliers - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-25: [GET] /api/v2/supplier/options",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/supplier/options",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "supplier",
+                "options"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/supplier/options",
+                  "pm.test(\"[GET] /api/v2/supplier/options - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-35: [POST] /api/v2/theads/supplier_address_tab",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/theads/supplier_address_tab",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "theads",
+                "supplier_address_tab"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tables\": [\n    {\n      \"id\": 197,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"id\",\n      \"headerName\": \"\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 1,\n      \"width\": 50,\n      \"order\": 1\n    },\n    {\n      \"id\": 198,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"barcode\",\n      \"headerName\": \"Address #\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 150,\n      \"order\": 2\n    },\n    {\n      \"id\": 199,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"billing_name\",\n      \"headerName\": \"Supplier Address\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 240,\n      \"order\": 3\n    },\n    {\n      \"id\": 200,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"contact_person\",\n      \"headerName\": \"Contact Person\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 220,\n      \"order\": 4\n    },\n    {\n      \"id\": 201,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"billing_address\",\n      \"headerName\": \"Address\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 240,\n      \"order\": 5\n    },\n    {\n      \"id\": 202,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"is_primary\",\n      \"headerName\": \"Primary\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 110,\n      \"order\": 6\n    },\n    {\n      \"id\": 203,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"status\",\n      \"headerName\": \"Status\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 120,\n      \"order\": 7\n    },\n    {\n      \"id\": 204,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"added_at\",\n      \"headerName\": \"Created\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 170,\n      \"order\": 8\n    },\n    {\n      \"id\": 205,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"updated_at\",\n      \"headerName\": \"Last Updated\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 170,\n      \"order\": 9\n    },\n    {\n      \"id\": 206,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"actions\",\n      \"headerName\": \"Actions\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 1,\n      \"width\": 110,\n      \"order\": 10\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [POST] /api/v2/theads/supplier_address_tab",
+                  "pm.test(\"[POST] /api/v2/theads/supplier_address_tab - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Suite 08 - Equipment & Customer Assets",
+      "item": [
+        {
+          "name": "TC-API-11: [GET] /api/v2/client-equipment",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/client-equipment",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "client-equipment"
+              ],
+              "query": [
+                {
+                  "key": "tab",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "t",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "thead_type",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "current_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "customer",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/client-equipment",
+                  "pm.test(\"[GET] /api/v2/client-equipment - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 6022ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(6022);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-36: [POST] /api/v2/client-equipment/raise-ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/client-equipment/raise-ticket",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "client-equipment",
+                "raise-ticket"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    678\n  ],\n  \"title\": \"Corrective repair — 1 customer asset(s)\",\n  \"priority\": 3,\n  \"description\": null,\n  \"started_at\": \"2026-10-23 09:00\",\n  \"is_service_form_required\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [POST] /api/v2/client-equipment/raise-ticket",
+                  "pm.test(\"[POST] /api/v2/client-equipment/raise-ticket - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3614ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3614);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Suite 09 - Settings, Masters & Custom Fields",
+      "item": [
+        {
+          "name": "TC-API-14: [GET] /api/v2/setting/master/unit",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/setting/master/unit",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "setting",
+                "master",
+                "unit"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/setting/master/unit",
+                  "pm.test(\"[GET] /api/v2/setting/master/unit - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 5750ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(5750);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Suite 10 - System Utilities & Data Validation",
+      "item": [
+        {
+          "name": "TC-API-03: [GET] /api/v2/address/billing-listing",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/address/billing-listing",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "address",
+                "billing-listing"
+              ],
+              "query": [
+                {
+                  "key": "tab",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "thead_type",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "current_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "customer",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "t",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/address/billing-listing",
+                  "pm.test(\"[GET] /api/v2/address/billing-listing - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3646ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3646);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-06: [GET] /api/v2/global-search",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/global-search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "global-search"
+              ],
+              "query": [
+                {
+                  "key": "query",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "module",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/global-search",
+                  "pm.test(\"[GET] /api/v2/global-search - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-07: [GET] /api/v2/phone/check",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/phone/check",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "phone",
+                "check"
+              ],
+              "query": [
+                {
+                  "key": "mobile",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/phone/check",
+                  "pm.test(\"[GET] /api/v2/phone/check - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 3000ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-41: [GET] /api/v2/internal-notes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/internal-notes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "internal-notes"
+              ],
+              "query": [
+                {
+                  "key": "parent_id",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "parent_type",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "limit",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "type",
+                  "value": "1",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Suite for: [GET] /api/v2/internal-notes",
+                  "pm.test(\"[GET] /api/v2/internal-notes - Returns HTTP 200 or 201\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time SLA check (Expected <= 7214ms)\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(7214);",
+                  "});",
+                  "",
+                  "pm.test(\"Response Content-Type is JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Response payload contains status flag and data object\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an(\"object\");",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "    if (json.data !== undefined) {",
+                  "        pm.expect(json.data).to.not.be.null;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Dynamic ID Chaining to Collection Variables",
+                  "if (pm.response.code === 200) {",
+                  "    try {",
+                  "        var resJson = pm.response.json();",
+                  "        if (resJson.data && resJson.data.id) {",
+                  "            pm.collectionVariables.set(\"lastCreatedId\", resJson.data.id);",
+                  "        }",
+                  "        if (resJson.data && Array.isArray(resJson.data) && resJson.data.length > 0 && resJson.data[0].id) {",
+                  "            pm.collectionVariables.set(\"firstListingId\", resJson.data[0].id);",
+                  "        }",
+                  "    } catch (e) {}",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

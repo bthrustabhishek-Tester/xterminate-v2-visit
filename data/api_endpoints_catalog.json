@@ -1,5 +1,29 @@
 [
   {
+    "category": "Authentication v2 APIs",
+    "method": "POST",
+    "endpoint": "/api/v2/auth/login",
+    "description": "Authenticates user credentials and generates JWT bearer access token",
+    "body": {
+      "email": "admin@genicteams.com",
+      "password": "string",
+      "client": "web"
+    }
+  },
+  {
+    "category": "Authentication v2 APIs",
+    "method": "GET",
+    "endpoint": "/api/v2/auth/verify",
+    "description": "Validates active authenticated session and returns current user details and permissions"
+  },
+  {
+    "category": "Authentication v2 APIs",
+    "method": "POST",
+    "endpoint": "/api/v2/auth/logout",
+    "description": "Invalidates active JWT token, revokes session, and logs user logout history",
+    "body": {}
+  },
+  {
     "category": "Customer v2 APIs",
     "method": "GET",
     "endpoint": "/api/v2/customer",

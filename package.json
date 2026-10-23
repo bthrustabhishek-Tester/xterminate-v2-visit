@@ -19,7 +19,14 @@
     "test:notes": "playwright test tests/08_notes_attachments_terms",
     "test:lifecycle": "playwright test tests/09_e2e_creation_and_lifecycle",
     "test:api": "playwright test tests/10_api_contract_and_validation",
-    "test:report": "playwright show-report"
+    "test:report": "playwright show-report",
+    "test:suites": "playwright test tests/qa_defect_test_suites",
+    "test:canonical-api": "playwright test tests/10_api_contract_and_validation/20_canonical_49_endpoints_suite.spec.ts",
+    "token:refresh": "node scripts/refresh_token.js",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:validation": "playwright test --grep @validation",
+    "test:ui-checks": "playwright test --grep @ui"
   },
   "keywords": [
     "playwright",

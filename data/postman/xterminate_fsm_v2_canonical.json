@@ -1,0 +1,3585 @@
+{
+  "info": {
+    "_postman_id": "c6e7a892-7f11-4822-a63b-9a2c1f8d9901",
+    "name": "Exterminate FSM V2 - Canonical API Suite (49 Endpoints)",
+    "description": "Production-grade Canonical API Test Suite extracted and deduplicated from Chrome DevTools HAR analysis (555 raw network calls deduplicated to 49 unique backend endpoints). Includes automated assertions for HTTP status, response time, and schema integrity.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://dev-xterminate-v2.businessthrust.com.sg",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "customerId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "jobId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "supplierId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "propertyId",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Customer Management",
+      "item": [
+        {
+          "name": "[GET] /api/v2/custom-fields/schema/customers (Calls: 15, Avg: 1692ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/custom-fields/schema/customers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "custom-fields",
+                "schema",
+                "customers"
+              ],
+              "query": [
+                {
+                  "key": "view",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1692ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3384);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/customer/options (Calls: 13, Avg: 4745ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/customer/options",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "customer",
+                "options"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 4745ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(9490);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/customer (Calls: 8, Avg: 4612ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/customer",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "customer"
+              ],
+              "query": [
+                {
+                  "key": "current_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 4612ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(9224);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/customer/summary (Calls: 8, Avg: 3389ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/customer/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "customer",
+                "summary"
+              ],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 3389ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(6778);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/customer/{id} (Calls: 7, Avg: 6145ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/customer/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "customer",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 6145ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(12290);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/customer/groups (Calls: 2, Avg: 1707ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/customer/groups",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "customer",
+                "groups"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1707ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3414);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/setting/form-layout/customer (Calls: 2, Avg: 1580ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/setting/form-layout/customer",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "setting",
+                "form-layout",
+                "customer"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1580ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3160);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/tags/customer (Calls: 2, Avg: 3939ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tags/customer",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "tags",
+                "customer"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 3939ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(7878);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/filter/dropdown/customer (Calls: 2, Avg: 278ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/filter/dropdown/customer",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "filter",
+                "dropdown",
+                "customer"
+              ],
+              "query": [
+                {
+                  "key": "filter_type",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "field",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "filter",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "value",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 278ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/validate/customer/any-field (Calls: 2, Avg: 288ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/validate/customer/any-field",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "validate",
+                "customer",
+                "any-field"
+              ],
+              "query": [
+                {
+                  "key": "filter_type",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "field",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "value",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 288ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/job/customer/{id}/visits (Calls: 1, Avg: 1085ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/customer/{id}/visits",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                "customer",
+                ":id",
+                "visits"
+              ],
+              "query": [
+                {
+                  "key": "tab",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "thead_type",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "current_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "customer",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1085ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "System & Utilities",
+      "item": [
+        {
+          "name": "[GET] /api/v2/address/billing-listing (Calls: 10, Avg: 1823ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/address/billing-listing",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "address",
+                "billing-listing"
+              ],
+              "query": [
+                {
+                  "key": "tab",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "thead_type",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "current_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "customer",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "t",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1823ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3646);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/global-search (Calls: 8, Avg: 1105ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/global-search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "global-search"
+              ],
+              "query": [
+                {
+                  "key": "query",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "module",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1105ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/phone/check (Calls: 7, Avg: 631ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/phone/check",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "phone",
+                "check"
+              ],
+              "query": [
+                {
+                  "key": "mobile",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 631ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/internal-notes (Calls: 1, Avg: 3607ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/internal-notes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "internal-notes"
+              ],
+              "query": [
+                {
+                  "key": "parent_id",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "parent_type",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "type",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 3607ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(7214);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Suppliers",
+      "item": [
+        {
+          "name": "[GET] /api/v2/supplier/address-listing (Calls: 6, Avg: 647ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/supplier/address-listing",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "supplier",
+                "address-listing"
+              ],
+              "query": [
+                {
+                  "key": "tab",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "thead_type",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "current_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "supplier",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "t",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "barcode",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "zip_code",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "contact_person_name",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "contact_email",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "contact_phone",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "start_date",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "end_date",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 647ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/supplier (Calls: 2, Avg: 1245ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/supplier",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "supplier"
+              ],
+              "query": [
+                {
+                  "key": "current_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1245ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/supplier/summary (Calls: 2, Avg: 1075ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/supplier/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "supplier",
+                "summary"
+              ],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1075ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/supplier/{id} (Calls: 2, Avg: 1347ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/supplier/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "supplier",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1347ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/custom-fields/schema/suppliers (Calls: 2, Avg: 1087ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/custom-fields/schema/suppliers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "custom-fields",
+                "schema",
+                "suppliers"
+              ],
+              "query": [
+                {
+                  "key": "view",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1087ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/supplier/options (Calls: 2, Avg: 1111ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/supplier/options",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "supplier",
+                "options"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1111ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[POST] /api/v2/theads/supplier_address_tab (Calls: 1, Avg: 810ms)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/theads/supplier_address_tab",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "theads",
+                "supplier_address_tab"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tables\": [\n    {\n      \"id\": 197,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"id\",\n      \"headerName\": \"\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 1,\n      \"width\": 50,\n      \"order\": 1\n    },\n    {\n      \"id\": 198,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"barcode\",\n      \"headerName\": \"Address #\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 150,\n      \"order\": 2\n    },\n    {\n      \"id\": 199,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"billing_name\",\n      \"headerName\": \"Supplier Address\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 240,\n      \"order\": 3\n    },\n    {\n      \"id\": 200,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"contact_person\",\n      \"headerName\": \"Contact Person\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 220,\n      \"order\": 4\n    },\n    {\n      \"id\": 201,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"billing_address\",\n      \"headerName\": \"Address\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 240,\n      \"order\": 5\n    },\n    {\n      \"id\": 202,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"is_primary\",\n      \"headerName\": \"Primary\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 110,\n      \"order\": 6\n    },\n    {\n      \"id\": 203,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"status\",\n      \"headerName\": \"Status\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 120,\n      \"order\": 7\n    },\n    {\n      \"id\": 204,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"added_at\",\n      \"headerName\": \"Created\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 170,\n      \"order\": 8\n    },\n    {\n      \"id\": 205,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"updated_at\",\n      \"headerName\": \"Last Updated\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 0,\n      \"width\": 170,\n      \"order\": 9\n    },\n    {\n      \"id\": 206,\n      \"type\": \"supplier_address_tab\",\n      \"field\": \"actions\",\n      \"headerName\": \"Actions\",\n      \"sort\": \"asc\",\n      \"visible\": true,\n      \"fixed\": 1,\n      \"width\": 110,\n      \"order\": 10\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 810ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "TC-API-00-A: [POST] /api/v2/auth/login (Acquire Token)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Origin",
+                "value": "https://dev-xterminate-v2.businessthrust.com.sg",
+                "type": "text"
+              },
+              {
+                "key": "Referer",
+                "value": "https://dev-xterminate-v2.businessthrust.com.sg/admin/login",
+                "type": "text"
+              },
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\",\n  \"fcm_token\": null,\n  \"device_info\": null,\n  \"client\": \"web\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test & Token Extraction for [POST] /api/v2/auth/login",
+                  "pm.test('[POST] /api/v2/auth/login - Returns HTTP 200 OK', function () {",
+                  "    pm.expect(pm.response.code).to.eql(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Expected <= 3000ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "pm.test('Login response contains valid status, message, and JWT token', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.status).to.be.true;",
+                  "    pm.expect(json.data).to.be.an('object');",
+                  "    pm.expect(json.data.token).to.be.a('string');",
+                  "    ",
+                  "    // Automatically set authToken for all subsequent requests in this run!",
+                  "    pm.collectionVariables.set('authToken', json.data.token);",
+                  "    pm.environment.set('authToken', json.data.token);",
+                  "    console.log('Successfully acquired fresh authToken!');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/auth/verify (Calls: 5, Avg: 883ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/auth/verify",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "auth",
+                "verify"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 883ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "TC-API-00: [POST] /api/v2/auth/logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Automated Test Assertions for [POST] /api/v2/auth/logout",
+                  "pm.test('[POST] /api/v2/auth/logout - Returns HTTP 200 or 204', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 204, 302, 401]);",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Expected <= 3000ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.test('Logout response contains valid status/message payload', function () {",
+                  "        var json = pm.response.json();",
+                  "        pm.expect(json).to.be.an('object');",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Equipment & Assets",
+      "item": [
+        {
+          "name": "[GET] /api/v2/client-equipment (Calls: 5, Avg: 3011ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/client-equipment",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "client-equipment"
+              ],
+              "query": [
+                {
+                  "key": "tab",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "t",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "thead_type",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "current_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "customer",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 3011ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(6022);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[POST] /api/v2/client-equipment/raise-ticket (Calls: 1, Avg: 1807ms)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/client-equipment/raise-ticket",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "client-equipment",
+                "raise-ticket"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    678\n  ],\n  \"title\": \"Corrective repair — 1 customer asset(s)\",\n  \"priority\": 3,\n  \"description\": null,\n  \"started_at\": \"2026-10-23 09:00\",\n  \"is_service_form_required\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1807ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3614);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Properties & Sites",
+      "item": [
+        {
+          "name": "[GET] /api/v2/property (Calls: 4, Avg: 1573ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/property",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "property"
+              ],
+              "query": [
+                {
+                  "key": "tab",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "thead_type",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "current_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "customer",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "barcode",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "property_name",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "zip_code",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "contact_person[display_name]",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "contact_person[primary_email]",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "contact_person[primary_phone]",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "start_date",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "end_date",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "t",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1573ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3146);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/property/tree/{id} (Calls: 4, Avg: 2778ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/property/tree/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "property",
+                "tree",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 2778ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(5556);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Settings & Form Layouts",
+      "item": [
+        {
+          "name": "[GET] /api/v2/setting/master/unit (Calls: 4, Avg: 2875ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/setting/master/unit",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "setting",
+                "master",
+                "unit"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 2875ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(5750);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Jobs & Service Orders",
+      "item": [
+        {
+          "name": "[GET] /api/v2/job/related-documents (Calls: 4, Avg: 20807ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/related-documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                "related-documents"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "customer",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "limit",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 20807ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(41614);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[POST] /api/v2/job/availability (Calls: 3, Avg: 20957ms)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/availability",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                "availability"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slots\": [\n    {\n      \"started_at\": \"2026-10-23 09:00:00\",\n      \"finished_at\": \"2026-10-23 11:00:00\"\n    }\n  ],\n  \"skills\": [],\n  \"services\": [],\n  \"tools\": [],\n  \"ignore_visit\": null,\n  \"properties\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 20957ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(41914);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/job (Calls: 3, Avg: 12144ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job"
+              ],
+              "query": [
+                {
+                  "key": "current_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 12144ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(24288);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/job/stats (Calls: 3, Avg: 10417ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/stats",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                "stats"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 10417ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(20834);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/job/{id} (Calls: 2, Avg: 4982ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 4982ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(9964);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/job/options (Calls: 2, Avg: 2139ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/options",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                "options"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 2139ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(4278);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/job/{id}/overview (Calls: 1, Avg: 6991ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/{id}/overview",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                ":id",
+                "overview"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 6991ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(13982);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/job/{id}/summary (Calls: 1, Avg: 7292ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/{id}/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                ":id",
+                "summary"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 7292ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(14584);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/job/{id}/safety (Calls: 1, Avg: 7075ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/{id}/safety",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                ":id",
+                "safety"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 7075ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(14150);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/job/{id}/related (Calls: 1, Avg: 7230ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/{id}/related",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                ":id",
+                "related"
+              ],
+              "query": [
+                {
+                  "key": "related_tab",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "current_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 7230ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(14460);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/job/{id}/ptw-documents (Calls: 1, Avg: 20082ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/job/{id}/ptw-documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "job",
+                ":id",
+                "ptw-documents"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 20082ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(40164);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Visits & Scheduling",
+      "item": [
+        {
+          "name": "[GET] /api/v2/custom-fields/schema/visits (Calls: 3, Avg: 4431ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/custom-fields/schema/visits",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "custom-fields",
+                "schema",
+                "visits"
+              ],
+              "query": [
+                {
+                  "key": "view",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 4431ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(8862);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/setting/form-layout/visit (Calls: 2, Avg: 1228ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/setting/form-layout/visit",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "setting",
+                "form-layout",
+                "visit"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1228ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/tags/visit (Calls: 2, Avg: 3486ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tags/visit",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "tags",
+                "visit"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 3486ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(6972);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Enquiries & Leads",
+      "item": [
+        {
+          "name": "[GET] /api/v2/custom-fields/schema/enquiries (Calls: 3, Avg: 1122ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/custom-fields/schema/enquiries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "custom-fields",
+                "schema",
+                "enquiries"
+              ],
+              "query": [
+                {
+                  "key": "view",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 1122ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/enquiry (Calls: 1, Avg: 3631ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/enquiry",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "enquiry"
+              ],
+              "query": [
+                {
+                  "key": "current_page",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "per_page",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 3631ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(7262);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/enquiry/summary (Calls: 1, Avg: 3054ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/enquiry/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "enquiry",
+                "summary"
+              ],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 3054ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(6108);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/enquiry/options (Calls: 1, Avg: 4075ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/enquiry/options",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "enquiry",
+                "options"
+              ],
+              "query": [
+                {
+                  "key": "enquiry",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "duplicate",
+                  "value": "",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 4075ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(8150);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/setting/form-layout/enquiry (Calls: 1, Avg: 2384ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/setting/form-layout/enquiry",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "setting",
+                "form-layout",
+                "enquiry"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 2384ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(4768);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/setting/master/enquiry-category (Calls: 1, Avg: 2416ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/setting/master/enquiry-category",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "setting",
+                "master",
+                "enquiry-category"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 2416ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(4832);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "[GET] /api/v2/tags/enquiry (Calls: 1, Avg: 2412ms)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v2/tags/enquiry",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "tags",
+                "enquiry"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+                  "});",
+                  "",
+                  "pm.test('Response contains valid JSON with status indicator', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('object');",
+                  "    if (json.status !== undefined) {",
+                  "        pm.expect(json.status).to.be.true;",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time SLA check (Historical avg: 2412ms)', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(4824);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

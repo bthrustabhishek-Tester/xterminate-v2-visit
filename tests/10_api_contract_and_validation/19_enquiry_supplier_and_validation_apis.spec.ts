@@ -6,21 +6,17 @@
  */
 
 import { test, expect } from '@playwright/test';
+import { BASE_URL, getAuthHeaders } from '../../helpers/apiAuthHelper';
 
-const BASE_URL = process.env.BASE_URL || 'https://dev-xterminate-v2.businessthrust.com.sg';
-const BEARER_TOKEN =
-  process.env.BEARER_TOKEN ||
-  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.' +
-  'eyJpc3MiOiJodHRwczovL2Rldi14dGVybWluYXRlLXYyLmJ1c2luZXNzdGhydXN0LmNvbS5zZy9hcGkvdjIvYXV0aC9sb2dpbiIs' +
-  'ImlhdCI6MTc5MjY1NjM4OSwiZXhwIjoxODI0MTkyMzg5LCJuYmYiOjE3OTI2NTYzODksImp0aSI6IjZoNlkxcmJqcWszcXdHMzAiLCJzdWIiOjIsInBydiI6IjcxYWY0NTllMDUwOGE3NzY0NDY4MDAxMmM4ZDMzODgyMzIyNTQ0YmUiLCJ0dnIiOjB9.' +
-  'Dl1jO33anroXzLlC4evK6kw6yBpAgkfu-x59Ck3O7h8';
-
-const headers = {
-  Accept: 'application/json',
-  Authorization: `Bearer ${BEARER_TOKEN}`,
-};
+let headers: { [key: string]: string };
 
 test.describe('Module 19: Enquiry, Supplier, Customer Validation & Asset APIs (13 Scenarios)', () => {
+  test.beforeEach(async ({ request }) => {
+    if (!headers) {
+      headers = await getAuthHeaders(request);
+    }
+  });
+
   // 1. Customer Summary & Validation
   test('TC-API-V2-020: GET /api/v2/customer/summary returns monthly customer volume stats', async ({ request }) => {
     const res = await request.get(`${BASE_URL}/api/v2/customer/summary?period=month`, { headers });
